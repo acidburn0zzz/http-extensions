@@ -1,0 +1,278 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>A JSON Encoding for HTTP Header Field Values</title><script type="application/javascript">
+var buttonsAdded = false;
+
+function initFeedback() {
+  var fb = document.createElement("div");
+  fb.className = "btn btn-primary feedback hidden-print";
+  fb.setAttribute("onclick", "feedback();");
+  fb.appendChild(document.createTextNode("feedback"));
+
+  document.body.appendChild(fb);
+}
+
+function feedback() {
+  toggleButtonsToElementsByName("h2");
+  toggleButtonsToElementsByName("h3");
+  toggleButtonsToElementsByName("h4");
+  toggleButtonsToElementsByName("h5");
+
+  buttonsAdded = !buttonsAdded;
+}
+
+function toggleButtonsToElementsByName(name) {
+  var list = document.getElementsByTagName(name);
+  for (var i = 0; i < list.length; i++) {
+    toggleButton(list.item(i));
+  }
+}
+
+function toggleButton(node) {
+  if (! buttonsAdded) {
+
+    // docname
+    var template = "mailto:ietf-http-wg@w3.org?subject={docname},%20%22{section}%22&body=<{ref}>:";
+
+    var id = node.getAttribute("id");
+    // try also parent
+    if (id == null || id == "") {
+      var id = node.parentNode.getAttribute("id");
+    }
+    // better id available?
+    var titlelinks = node.getElementsByTagName("a");
+    for (var i = 0; i < titlelinks.length; i++) {
+      var tl = titlelinks.item(i);
+      if (tl.getAttribute("id")) {
+        id = tl.getAttribute("id");
+      }
+    }
+    
+    // ref
+    var ref = window.location.toString();
+    var hash = ref.indexOf("#");
+    if (hash != -1) {
+      ref = ref.substring(0, hash);
+    }
+    if (id != null && id != "") {
+      ref += "#" + id;
+    }
+
+    // docname
+    var docname = "draft-ietf-httpbis-jfv-latest";
+
+    // section
+    var section = node.textContent;
+    section = section.replace("\u00a0", " ").trim();
+
+    // build URI from template
+    var uri = template.replace("{docname}", encodeURIComponent(docname));
+    uri = uri.replace("{section}", encodeURIComponent(section));
+    uri = uri.replace("{ref}", encodeURIComponent(ref));
+
+    var button = document.createElement("a");
+    button.className = "btn btn-primary fbbutton hidden-print";
+    button.setAttribute("href", uri);
+    button.appendChild(document.createTextNode("send feedback"));
+    node.appendChild(button);
+  }
+  else {
+    var buttons = node.getElementsByTagName("a");
+    for (var i = 0; i < buttons.length; i++) {
+      var b = buttons.item(i);
+      if (b.className == "btn btn-primary fbbutton hidden-print") {
+        node.removeChild(b);
+      }
+    }
+  }
+}</script><script type="application/javascript">
+function anchorRewrite() {
+  map = { };
+  if (window.location.hash.length >= 1) {
+    var fragid = window.location.hash.substr(1);
+    if (fragid) {
+      if (! document.getElementById(fragid)) {
+        var prefix = "rfc.";
+        var mapped = map[fragid];
+        if (mapped) {
+          window.location.hash = mapped;
+        } else if (fragid.indexOf("section-") == 0) {
+          window.location.hash = prefix + "section." + fragid.substring(8);
+        } else if (fragid.indexOf("appendix-") == 0) {
+          window.location.hash = prefix + "section." + fragid.substring(9);
+        } else if (fragid.indexOf("s-") == 0) {
+          window.location.hash = prefix + "section." + fragid.substring(2);
+        } else if (fragid.indexOf("p-") == 0) {
+          var r = fragid.substring(2);
+          var p = r.indexOf("-");
+          if (p >= 0) {
+            window.location.hash = prefix + "section." + r.substring(0, p) + ".p." + r.substring(p + 1);
+          }
+        }
+      }
+    }  
+  }
+}
+window.addEventListener('hashchange', anchorRewrite);
+window.addEventListener('DOMContentLoaded', anchorRewrite);
+</script><script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"><style type="text/css">
+      body {
+        padding-top: 80px;
+        padding-bottom: 80px;
+        position: relative;
+      }
+      .table.header th, .table.header td {
+        border-top: none;
+        padding: 0;
+      }
+      #rfc\.meta {
+        width: 40%;
+        float: right
+      }
+      #rfc\.toc > ul li {
+        list-style: none;
+      }
+      .container .nav-sublist {
+        padding-left: 20px;
+        padding-right: 10px;
+        font-size: 90%;
+      }
+      .container .navbar-brand {
+        padding-top: 0;
+      }
+      .container .nav > li > a {
+        padding: 10px 7px 5px 15px;
+        display: inline-block;
+      }
+      .container .nav > li > a + a {
+        padding: 10px 15px 5px 7px;
+        display: inline-block;
+      }
+      .container .nav > li > a {
+        padding: 5px 10px;
+      }
+      .filename {
+        color: rgb(119, 119, 119);
+        font-size: 23px;
+        font-weight: normal;
+        height: auto;
+        line-height: 23px;
+      }
+      dl {
+        margin-left: 1em;
+      }
+      dl.dl-horizontal: {
+        margin-left: 0;
+      }
+      dl > dt {
+        float: left;
+        margin-right: 1em;
+      }
+      dl.nohang > dt {
+        float: none;
+      }
+      dl > dd {
+        margin-bottom: .5em;
+      }
+      dl.compact > dd {
+        margin-bottom: 0em;
+      }
+      dl > dd > dl {
+        margin-top: 0.5em;
+        margin-bottom: 0em;
+      }
+      ul.empty {
+        list-style-type: none;
+      }
+      ul.empty li {
+        margin-top: .5em;
+      }
+      td.reference {
+        padding-right: 1em;
+        vertical-align: top;
+      }
+      .feedback {
+        position: fixed;
+        bottom: 5px;
+        right: 5px;
+      }
+      .fbbutton {
+        margin-left: 5px;
+      }
+      h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+        color: rgb(51, 51, 51);
+      }
+      span.tt {
+        font: 11pt consolas, monospace;
+        font-size-adjust: none;
+      }
+    </style><link rel="Author" href="#rfc.authors"><link rel="Copyright" href="#rfc.copyrightnotice"><link rel="Chapter" title="1 Introduction" href="#rfc.section.1"><link rel="Chapter" title="2 Data Model and Format" href="#rfc.section.2"><link rel="Chapter" title="3 Sender Requirements" href="#rfc.section.3"><link rel="Chapter" title="4 Recipient Requirements" href="#rfc.section.4"><link rel="Chapter" title="5 Using this Format in Header Field Definitions" href="#rfc.section.5"><link rel="Chapter" title="6 Deployment Considerations" href="#rfc.section.6"><link rel="Chapter" title="7 Interoperability Considerations" href="#rfc.section.7"><link rel="Chapter" title="8 Internationalization Considerations" href="#rfc.section.8"><link rel="Chapter" title="9 Security Considerations" href="#rfc.section.9"><link rel="Chapter" href="#rfc.section.10" title="10 References"><link rel="Appendix" title="A Examples" href="#rfc.section.A"><link rel="Appendix" title="B Discussion" href="#rfc.section.B"><link rel="Appendix" title="C Change Log (to be removed by RFC Editor before publication)" href="#rfc.section.C"><link rel="Appendix" title="Acknowledgements" href="#rfc.section.unnumbered-1"><meta name="generator" content="https://github.com/mnot/RFCBootstrap XSLT vendor: SAXON 9.1.0.8 from Saxonica http://www.saxonica.com/"><meta name="keywords" content="HTTP, JSON, Header Field Value"><link rel="schema.dcterms" href="http://purl.org/dc/terms/"><meta name="dcterms.creator" content="Reschke, J. F."><meta name="dcterms.identifier" content="urn:ietf:id:draft-ietf-httpbis-jfv-latest"><meta name="dcterms.issued" content="2016-12-08"><meta name="dcterms.abstract" content="This document establishes a convention for use of JSON-encoded field values in HTTP header fields."><meta name="description" content="This document establishes a convention for use of JSON-encoded field values in HTTP header fields."></head><body onload="initFeedback();"><div class="container" id="top"><div class="row"><div class="col-md-4 col-md-push-8 hidden-sm hidden-xs" role="navigation"><div class="navbar"><div class="navbar-brand"><a href="#top">Internet-Draft</a></div><br clear="all"><div class=""><div id="rfc..toc"><ul class="nav"><li><a href="#rfc.section.1">1.</a>&nbsp;&nbsp;&nbsp;<a href="#introduction">Introduction</a></li><li><a href="#rfc.section.2">2.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.2">Data Model and Format</a></li><li><a href="#rfc.section.3">3.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.3">Sender Requirements</a></li><li><a href="#rfc.section.4">4.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.4">Recipient Requirements</a></li><li><a href="#rfc.section.5">5.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.5">Using this Format in Header Field Definitions</a></li><li><a href="#rfc.section.6">6.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.6">Deployment Considerations</a></li><li><a href="#rfc.section.7">7.</a>&nbsp;&nbsp;&nbsp;<a href="#interop">Interoperability Considerations</a><ul><li><a href="#rfc.section.7.1">7.1</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.7.1">Encoding and Characters</a></li><li><a href="#rfc.section.7.2">7.2</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.7.2">Numbers</a></li><li><a href="#rfc.section.7.3">7.3</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.7.3">Object Constraints</a></li></ul></li><li><a href="#rfc.section.8">8.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.8">Internationalization Considerations</a></li><li><a href="#rfc.section.9">9.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.9">Security Considerations</a></li><li><a href="#rfc.section.10">10.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references">References</a><ul><li><a href="#rfc.section.10.1">10.1</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references.1">Normative References</a></li><li><a href="#rfc.section.10.2">10.2</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references.2">Informative References</a></li></ul></li><li><a href="#rfc.section.A">A.</a>&nbsp;&nbsp;&nbsp;<a href="#examples">Examples</a><ul><li><a href="#rfc.section.A.1">A.1</a>&nbsp;&nbsp;&nbsp;<a href="#example.content-length">Content-Length</a></li><li><a href="#rfc.section.A.2">A.2</a>&nbsp;&nbsp;&nbsp;<a href="#example.content-disposition">Content-Disposition</a></li><li><a href="#rfc.section.A.3">A.3</a>&nbsp;&nbsp;&nbsp;<a href="#example.www-authenticate">WWW-Authenticate</a></li><li><a href="#rfc.section.A.4">A.4</a>&nbsp;&nbsp;&nbsp;<a href="#example.accept-encoding">Accept-Encoding</a></li></ul></li><li><a href="#rfc.section.B">B.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.section.B">Discussion</a></li><li><a href="#rfc.section.C">C.</a>&nbsp;&nbsp;&nbsp;<a href="#change.log">Change Log (to be removed by RFC Editor before publication)</a><ul><li><a href="#rfc.section.C.1">C.1</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.00">Since draft-reschke-http-jfv-00</a></li><li><a href="#rfc.section.C.2">C.2</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.01">Since draft-reschke-http-jfv-01</a></li><li><a href="#rfc.section.C.3">C.3</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.02">Since draft-reschke-http-jfv-02</a></li><li><a href="#rfc.section.C.4">C.4</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.03">Since draft-reschke-http-jfv-03</a></li><li><a href="#rfc.section.C.5">C.5</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.04">Since draft-reschke-http-jfv-04</a></li><li><a href="#rfc.section.C.6">C.6</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.wg.00">Since draft-ietf-httpbis-jfv-00</a></li><li><a href="#rfc.section.C.7">C.7</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.wg.01">Since draft-ietf-httpbis-jfv-01</a></li><li><a href="#rfc.section.C.8">C.8</a>&nbsp;&nbsp;&nbsp;<a href="#changes.since.wg.02">Since draft-ietf-httpbis-jfv-02</a></li></ul></li><li><a href="#acks">Acknowledgements</a></li><li><a href="#rfc.authors">Author's Address</a></li></ul></div></div></div></div><div class="col-md-8 col-md-pull-4 main" role="main"><header><table class="table table-condensed header" id="rfc.headerblock"><tbody><tr><td class="text-left">HTTP Working Group</td><td class="text-right">J. Reschke</td></tr><tr><td class="text-left">Internet-Draft</td><td class="text-right">greenbytes</td></tr><tr><td class="text-left">Intended status: Standards Track</td><td class="text-right">December 8, 2016</td></tr><tr><td class="text-left">Expires: June 11, 2017</td><td class="text-right"></td></tr></tbody></table><div id="rfc.title"><h1>A JSON Encoding for HTTP Header Field Values</h1><div class="filename">draft-ietf-httpbis-jfv-latest</div></div></header><hr><h2 id="rfc..abstract"><a href="#rfc..abstract">Abstract</a></h2><div class="lead"><p>This document establishes a convention for use of JSON-encoded field values in HTTP header fields.</p></div><section id="rfc.note.1"><h2><a href="#rfc.note.1">Editorial Note (To be removed by RFC Editor before publication)</a></h2><p>Discussion of this draft takes place on the HTTPBIS working group mailing list (ietf-http-wg@w3.org), which is archived at &lt;<a href="https://lists.w3.org/Archives/Public/ietf-http-wg/">https://lists.w3.org/Archives/Public/ietf-http-wg/</a>&gt;.</p><p>Working Group information can be found at &lt;<a href="http://httpwg.github.io/">http://httpwg.github.io/</a>&gt;; source code and issues list for this draft can be found at &lt;<a href="https://github.com/httpwg/http-extensions">https://github.com/httpwg/http-extensions</a>&gt;.</p><p>The changes in this draft are summarized in <a href="#change.log" title="Change Log (to be removed by RFC Editor before publication)">Appendix&nbsp;C</a>.</p></section><section id="rfc.status"><h2><a href="#rfc.status">Status of This Memo</a></h2><p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p><p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF). Note that other groups may also distribute working documents as Internet-Drafts. The list of current Internet-Drafts is at <a href="http://datatracker.ietf.org/drafts/current/">http://datatracker.ietf.org/drafts/current/</a>.</p><p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work in progress”.</p><p>This Internet-Draft will expire on June 11, 2017.</p></section><section id="rfc.copyrightnotice"><h2><a href="#rfc.copyrightnotice">Copyright Notice</a></h2><p>Copyright © 2016 IETF Trust and the persons identified as the document authors. All rights reserved.</p><p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (<a href="http://trustee.ietf.org/license-info">http://trustee.ietf.org/license-info</a>) in effect on the date of publication of this document. Please review these documents carefully, as they describe your rights and restrictions with respect to this document. Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p></section><section id="introduction"><h2 id="rfc.section.1" class="np"><a href="#rfc.section.1">1.</a>&nbsp;<a href="#introduction">Introduction</a></h2><div id="rfc.section.1.p.1"><p>Defining syntax for new HTTP header fields (<a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="rfc7230.html#header.fields" title="Header Fields">Section 3.2</a>) is non-trivial. Among the commonly encountered problems are: </p><ul><li>There is no common syntax for complex field values. Several well-known header fields do use a similarly looking syntax, but it is hard to write generic parsing code that will both correctly handle valid field values but also reject invalid ones.</li><li>The HTTP message format allows header fields to repeat, so field syntax needs to be designed in a way that these cases are either meaningful, or can be unambiguously detected and rejected.</li><li>HTTP/1.1 does not define a character encoding scheme (<a href="#RFC6365"><cite title="Terminology Used in Internationalization in the IETF">[RFC6365]</cite></a>, <a href="https://tools.ietf.org/html/rfc6365#section-2">Section 2</a>), so header fields are either stuck with US-ASCII (<a href="#RFC0020"><cite title="ASCII format for network interchange">[RFC0020]</cite></a>), or need out-of-band information to decide what encoding scheme is used. Furthermore, APIs usually assume a default encoding scheme in order to map from octet sequences to strings (for instance, <a href="#XMLHttpRequest"><cite title="XMLHttpRequest">[XMLHttpRequest]</cite></a> uses the IDL type "ByteString", effectively resulting in the ISO-8859-1 character encoding scheme <a href="#ISO-8859-1"><cite title="Information technology -- 8-bit single-byte coded graphic character sets -- Part 1: Latin alphabet No. 1">[ISO-8859-1]</cite></a> being used).</li></ul></div><div id="rfc.section.1.p.2"><p>(See <a href="rfc7231.html#considerations.for.new.header.fields" title="Considerations for New Header Fields">Section 8.3.1</a> of <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a> for a summary of considerations for new header fields.)</p></div><div id="rfc.section.1.p.3" class="avoidbreakafter"><p>This specification addresses the issues listed above by defining both a generic JSON-based (<a href="#RFC7159"><cite title="The JavaScript Object Notation (JSON) Data Interchange Format">[RFC7159]</cite></a>) data model and a concrete wire format that can be used in definitions of new header fields, where the goals were:</p></div><ul id="rfc.section.1.p.4"><li>to be compatible with header field recombination when fields occur multiple times in a single message (<a href="rfc7230.html#field.order" title="Field Order">Section 3.2.2</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>), and</li> <li>not to use any problematic characters in the field value (non-ASCII characters and certain whitespace characters).</li> </ul></section><section id="n-data-model-and-format"><h2 id="rfc.section.2"><a href="#rfc.section.2">2.</a>&nbsp;<a href="#n-data-model-and-format">Data Model and Format</a></h2><div id="rfc.section.2.p.1"><p>In HTTP, header fields with the same field name can occur multiple times within a single message (<a href="rfc7230.html#field.order" title="Field Order">Section 3.2.2</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>). When this happens, recipients are allowed to combine the field values using commas as delimiter. This rule matches nicely JSON's array format (<a href="rfc7159.html#arrays" title="Arrays">Section 5</a> of <a href="#RFC7159"><cite title="The JavaScript Object Notation (JSON) Data Interchange Format">[RFC7159]</cite></a>). Thus, the basic data model used here is the JSON array.</p></div><div id="rfc.section.2.p.2"><p>Header field definitions that need only a single value can restrict themselves to arrays of length 1, and are encouraged to define error handling in case more values are received (such as "first wins", "last wins", or "abort with fatal error message").</p></div><div id="rfc.section.2.p.3"><p>JSON arrays are mapped to field values by creating a sequence of serialized member elements, separated by commas and optionally whitespace. This is equivalent to using the full JSON array format, while leaving out the "begin-array" ('[') and "end-array" (']') delimiters.</p></div><div id="rfc.figure.u.1"><p>The ABNF character names and classes below are used (copied from <a href="#RFC5234"><cite title="Augmented BNF for Syntax Specifications: ABNF">[RFC5234]</cite></a>, <a href="https://tools.ietf.org/html/rfc5234#appendix-B.1">Appendix B.1</a>):</p><pre class="inline">  CR               = %x0D    ; carriage return
+  HTAB             = %x09    ; horizontal tab
+  LF               = %x0A    ; line feed
+  SP               = %x20    ; space
+  VCHAR            = %x21-7E ; visible (printing) characters
+</pre></div><div id="rfc.section.2.p.4"><p>Characters in JSON strings that are not allowed or discouraged in HTTP header field values — that is, not in the "VCHAR" definition — need to be represented using JSON's "backslash" escaping mechanism (<a href="#RFC7159"><cite title="The JavaScript Object Notation (JSON) Data Interchange Format">[RFC7159]</cite></a>, <a href="rfc7159.html#strings" title="Strings">Section 7</a>).</p></div><div id="rfc.section.2.p.5"><p>The control characters CR, LF, and HTAB do not appear inside JSON strings, but can be used outside (line breaks, indentation etc.). These characters need to be either stripped or replaced by space characters (ABNF "SP").</p></div><div id="rfc.section.2.p.6" class="avoidbreakafter"><p>Formally, using the HTTP specification's ABNF extensions defined in <a href="rfc7230.html#abnf.extension" title="ABNF List Extension: #rule">Section 7</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>:</p></div><div id="rfc.figure.u.2"><pre class="inline">  json-field-value = #json-field-item
+  json-field-item  = JSON-Text
+                   ; see <a href="#RFC7159"><cite title="The JavaScript Object Notation (JSON) Data Interchange Format">[RFC7159]</cite></a>, <a href="rfc7159.html#grammar" title="JSON Grammar">Section 2</a>,
+                   ; post-processed so that only VCHAR characters
+                   ; are used
+</pre></div></section><section id="n-sender-requirements"><h2 id="rfc.section.3"><a href="#rfc.section.3">3.</a>&nbsp;<a href="#n-sender-requirements">Sender Requirements</a></h2><div id="rfc.section.3.p.1"><p>To map a JSON array to an HTTP header field value, process each array element separately by: </p><ol><li>generating the JSON representation,</li><li>stripping all JSON control characters (CR, HTAB, LF), or replacing them by space ("SP") characters,</li><li>replacing all remaining non-VSPACE characters by the equivalent backslash-escape sequence (<a href="#RFC7159"><cite title="The JavaScript Object Notation (JSON) Data Interchange Format">[RFC7159]</cite></a>, <a href="rfc7159.html#strings" title="Strings">Section 7</a>).</li></ol></div><div id="rfc.section.3.p.2"><p>The resulting list of strings is transformed into an HTTP field value by combining them using comma (%x2C) plus optional SP as delimiter, and encoding the resulting string into an octet sequence using the US-ASCII character encoding scheme (<a href="#RFC0020"><cite title="ASCII format for network interchange">[RFC0020]</cite></a>).</p></div></section><section id="n-recipient-requirements"><h2 id="rfc.section.4"><a href="#rfc.section.4">4.</a>&nbsp;<a href="#n-recipient-requirements">Recipient Requirements</a></h2><div id="rfc.section.4.p.1"><p>To map a set of HTTP header field instances to a JSON array: </p><ol><li>combine all header field instances into a single field as per <a href="rfc7230.html#field.order" title="Field Order">Section 3.2.2</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>,</li><li>add a leading begin-array ("[") octet and a trailing end-array ("]") octet, then</li><li>run the resulting octet sequence through a JSON parser.</li></ol></div><div id="rfc.section.4.p.2"><p>The result of the parsing operation is either an error (in which case the header field values needs to be considered invalid), or a JSON array.</p></div></section><section id="n-using-this-format-in-header-field-definitions"><h2 id="rfc.section.5"><a href="#rfc.section.5">5.</a>&nbsp;<a href="#n-using-this-format-in-header-field-definitions">Using this Format in Header Field Definitions</a></h2><div id="rfc.section.5.p.1"><p><span class="comment" id="rfc.comment.1">[<a href="#rfc.comment.1" class="smpl">rfc.comment.1</a>: Explain what a definition of a new header field needs to do precisely to use this format, mention must-ignore extensibility]</span> </p></div></section><section id="n-deployment-considerations"><h2 id="rfc.section.6"><a href="#rfc.section.6">6.</a>&nbsp;<a href="#n-deployment-considerations">Deployment Considerations</a></h2><div id="rfc.section.6.p.1"><p>This JSON-based syntax will only apply to newly introduced header fields, thus backwards compatibility is not a problem. That being said, it is conceivable that there is existing code that might trip over double quotes not being used for HTTP's quoted-string syntax (<a href="rfc7230.html#field.components" title="Field Value Components">Section 3.2.6</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>).</p></div></section><section id="interop"><h2 id="rfc.section.7"><a href="#rfc.section.7">7.</a>&nbsp;<a href="#interop">Interoperability Considerations</a></h2><div id="rfc.section.7.p.1" class="avoidbreakafter"><p>The "I-JSON Message Format" specification (<a href="#RFC7493"><cite title="The I-JSON Message Format">[RFC7493]</cite></a>) addresses known JSON interoperability pain points. This specification borrows from the requirements made over there:</p></div><section id="n-encoding-and-characters"><h3 id="rfc.section.7.1"><a href="#rfc.section.7.1">7.1</a>&nbsp;<a href="#n-encoding-and-characters">Encoding and Characters</a></h3><div id="rfc.section.7.1.p.1"><p>This specification requires that field values use only US-ASCII characters, and thus by definition use a subset of UTF-8 (<a href="https://tools.ietf.org/html/rfc7493#section-2.1">Section 2.1</a> of <a href="#RFC7493"><cite title="The I-JSON Message Format">[RFC7493]</cite></a>).</p></div></section><section id="n-numbers"><h3 id="rfc.section.7.2"><a href="#rfc.section.7.2">7.2</a>&nbsp;<a href="#n-numbers">Numbers</a></h3><div id="rfc.section.7.2.p.1"><p>Be aware of the issues around number precision, as discussed in <a href="https://tools.ietf.org/html/rfc7493#section-2.2">Section 2.2</a> of <a href="#RFC7493"><cite title="The I-JSON Message Format">[RFC7493]</cite></a>.</p></div></section><section id="n-object-constraints"><h3 id="rfc.section.7.3"><a href="#rfc.section.7.3">7.3</a>&nbsp;<a href="#n-object-constraints">Object Constraints</a></h3><div id="rfc.section.7.3.p.1"><p>As described in <a href="https://tools.ietf.org/html/rfc7159#section-4">Section 4</a> of <a href="#RFC7159"><cite title="The JavaScript Object Notation (JSON) Data Interchange Format">[RFC7159]</cite></a>, JSON parser implementations differ in the handling of duplicate object names. Therefore, senders <em class="bcp14">MUST NOT</em> use duplicate object names, and recipients <em class="bcp14">SHOULD</em> either treat field values with duplicate names as invalid (consistent with <a href="#RFC7493"><cite title="The I-JSON Message Format">[RFC7493]</cite></a>, <a href="https://tools.ietf.org/html/rfc7493#section-2.3">Section 2.3</a>) or use the lexically last value (consistent with <a href="#ECMA-262"><cite title="ECMA-262 6th Edition, The ECMAScript 2015 Language Specification">[ECMA-262]</cite></a>, <a href="http://www.ecma-international.org/ecma-262/6.0/#sec-internalizejsonproperty">Section 24.3.1.1</a>).</p></div><div id="rfc.section.7.3.p.2"><p>Furthermore, ordering of object members is not significant and can not be relied upon.</p></div></section></section><section id="n-internationalization-considerations"><h2 id="rfc.section.8"><a href="#rfc.section.8">8.</a>&nbsp;<a href="#n-internationalization-considerations">Internationalization Considerations</a></h2><div id="rfc.section.8.p.1"><p>In HTTP/1.1, header field values are represented by octet sequences, usually used to transmit ASCII characters, with restrictions on the use of certain control characters, and no associated default character encoding, nor a way to describe it (<a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, <a href="rfc7230.html#header.fields" title="Header Fields">Section 3.2</a>). HTTP/2 does not change this.</p></div><div id="rfc.section.8.p.2"><p>This specification maps all characters which can cause problems to JSON escape sequences, thereby solving the HTTP header field internationalization problem.</p></div><div id="rfc.section.8.p.3"><p>Future specifications of HTTP might change to allow non-ASCII characters natively. In that case, header fields using the syntax defined by this specification would have a simple migration path (by just stopping to require escaping of non-ASCII characters).</p></div></section><section id="n-security-considerations"><h2 id="rfc.section.9"><a href="#rfc.section.9">9.</a>&nbsp;<a href="#n-security-considerations">Security Considerations</a></h2><div id="rfc.section.9.p.1"><p>Using JSON-shaped field values is believed to not introduce any new threads beyond those described in <a href="https://tools.ietf.org/html/rfc7159#section-12">Section 12</a> of <a href="#RFC7159"><cite title="The JavaScript Object Notation (JSON) Data Interchange Format">[RFC7159]</cite></a>, namely the risk of recipients using the wrong tools to parse them.</p></div><div id="rfc.section.9.p.2"><p>Other than that, any syntax that makes extensions easy can be used to smuggle information through field values; however, this concern is shared with other widely used formats, such as those using parameters in the form of name/value pairs.</p></div></section><section id="rfc.references"><h2 id="rfc.section.10"><a href="#rfc.section.10">10.</a> References</h2><section id="rfc.references.1"><h3 id="rfc.section.10.1"><a href="#rfc.section.10.1">10.1</a> Normative References</h3><dl class="dl-horizontal"><dt id="RFC0020">[RFC0020]</dt><dd>Cerf, V., “<a href="https://tools.ietf.org/html/rfc20">ASCII format for network interchange</a>”, STD&nbsp;80, RFC&nbsp;20, <a href="http://dx.doi.org/10.17487/RFC0020">DOI&nbsp;10.17487/RFC0020</a>, October&nbsp;1969, &lt;<a href="http://www.rfc-editor.org/info/rfc20">http://www.rfc-editor.org/info/rfc20</a>&gt;.</dd><dt id="RFC5234">[RFC5234]</dt><dd>Crocker, D., Ed. and P. Overell, “<a href="https://tools.ietf.org/html/rfc5234">Augmented BNF for Syntax Specifications: ABNF</a>”, STD&nbsp;68, RFC&nbsp;5234, <a href="http://dx.doi.org/10.17487/RFC5234">DOI&nbsp;10.17487/RFC5234</a>, January&nbsp;2008, &lt;<a href="http://www.rfc-editor.org/info/rfc5234">http://www.rfc-editor.org/info/rfc5234</a>&gt;.</dd><dt id="RFC7159">[RFC7159]</dt><dd>Bray, T., “<a href="https://tools.ietf.org/html/rfc7159">The JavaScript Object Notation (JSON) Data Interchange Format</a>”, RFC&nbsp;7159, <a href="http://dx.doi.org/10.17487/RFC7159">DOI&nbsp;10.17487/RFC7159</a>, March&nbsp;2014, &lt;<a href="http://www.rfc-editor.org/info/rfc7159">http://www.rfc-editor.org/info/rfc7159</a>&gt;.</dd><dt id="RFC7230">[RFC7230]</dt><dd><a href="mailto:fielding@gbiv.com">Fielding, R., Ed.</a> and <a href="mailto:julian.reschke@greenbytes.de">J. Reschke, Ed.</a>, “<a href="https://tools.ietf.org/html/rfc7230">Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing</a>”, RFC&nbsp;7230, <a href="http://dx.doi.org/10.17487/RFC7230">DOI&nbsp;10.17487/RFC7230</a>, June&nbsp;2014, &lt;<a href="http://www.rfc-editor.org/info/rfc7230">http://www.rfc-editor.org/info/rfc7230</a>&gt;.</dd><dt id="RFC7231">[RFC7231]</dt><dd><a href="mailto:fielding@gbiv.com">Fielding, R., Ed.</a> and <a href="mailto:julian.reschke@greenbytes.de">J. Reschke, Ed.</a>, “<a href="https://tools.ietf.org/html/rfc7231">Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content</a>”, RFC&nbsp;7231, <a href="http://dx.doi.org/10.17487/RFC7231">DOI&nbsp;10.17487/RFC7231</a>, June&nbsp;2014, &lt;<a href="http://www.rfc-editor.org/info/rfc7231">http://www.rfc-editor.org/info/rfc7231</a>&gt;.</dd><dt id="RFC7493">[RFC7493]</dt><dd>Bray, T., Ed., “<a href="https://tools.ietf.org/html/rfc7493">The I-JSON Message Format</a>”, RFC&nbsp;7493, <a href="http://dx.doi.org/10.17487/RFC7493">DOI&nbsp;10.17487/RFC7493</a>, March&nbsp;2015, &lt;<a href="http://www.rfc-editor.org/info/rfc7493">http://www.rfc-editor.org/info/rfc7493</a>&gt;.</dd></dl></section><section id="rfc.references.2"><h3 id="rfc.section.10.2"><a href="#rfc.section.10.2">10.2</a> Informative References</h3><dl class="dl-horizontal"><dt id="ECMA-262">[ECMA-262]</dt><dd>Ecma International, “<a href="http://www.ecma-international.org/ecma-262/6.0/">ECMA-262 6th Edition, The ECMAScript 2015 Language Specification</a>”, Standard&nbsp;ECMA-262, June&nbsp;2015, &lt;<a href="http://www.ecma-international.org/ecma-262/6.0/">http://www.ecma-international.org/ecma-262/6.0/</a>&gt;.</dd><dt id="ISO-8859-1">[ISO-8859-1]</dt><dd>International Organization for Standardization, “Information technology -- 8-bit single-byte coded graphic character sets -- Part 1: Latin alphabet No. 1”, ISO/IEC&nbsp;8859-1:1998, 1998.</dd><dt id="KEY">[KEY]</dt><dd>Fielding, R. and M. Nottingham, “<a href="https://tools.ietf.org/html/draft-ietf-httpbis-key-01">The Key HTTP Response Header Field</a>”, Internet-Draft&nbsp;draft-ietf-httpbis-key-01 (work in progress), March&nbsp;2016.</dd><dt id="RFC5987">[RFC5987]</dt><dd>Reschke, J., “<a href="https://tools.ietf.org/html/rfc5987">Character Set and Language Encoding for Hypertext Transfer Protocol (HTTP) Header Field Parameters</a>”, RFC&nbsp;5987, <a href="http://dx.doi.org/10.17487/RFC5987">DOI&nbsp;10.17487/RFC5987</a>, August&nbsp;2010, &lt;<a href="http://www.rfc-editor.org/info/rfc5987">http://www.rfc-editor.org/info/rfc5987</a>&gt;.</dd><dt id="RFC6266">[RFC6266]</dt><dd>Reschke, J., “<a href="https://tools.ietf.org/html/rfc6266">Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)</a>”, RFC&nbsp;6266, <a href="http://dx.doi.org/10.17487/RFC6266">DOI&nbsp;10.17487/RFC6266</a>, June&nbsp;2011, &lt;<a href="http://www.rfc-editor.org/info/rfc6266">http://www.rfc-editor.org/info/rfc6266</a>&gt;.</dd><dt id="RFC6365">[RFC6365]</dt><dd>Hoffman, P. and J. Klensin, “<a href="https://tools.ietf.org/html/rfc6365">Terminology Used in Internationalization in the IETF</a>”, BCP&nbsp;166, RFC&nbsp;6365, <a href="http://dx.doi.org/10.17487/RFC6365">DOI&nbsp;10.17487/RFC6365</a>, September&nbsp;2011, &lt;<a href="http://www.rfc-editor.org/info/rfc6365">http://www.rfc-editor.org/info/rfc6365</a>&gt;.</dd><dt id="RFC7235">[RFC7235]</dt><dd>Fielding, R., Ed. and J. Reschke, Ed., “<a href="https://tools.ietf.org/html/rfc7235">Hypertext Transfer Protocol (HTTP/1.1): Authentication</a>”, RFC&nbsp;7235, <a href="http://dx.doi.org/10.17487/RFC7235">DOI&nbsp;10.17487/RFC7235</a>, June&nbsp;2014, &lt;<a href="http://www.rfc-editor.org/info/rfc7235">http://www.rfc-editor.org/info/rfc7235</a>&gt;.</dd><dt id="XMLHttpRequest">[XMLHttpRequest]</dt><dd>WhatWG, “<a href="https://xhr.spec.whatwg.org/">XMLHttpRequest</a>”, &lt;<a href="https://xhr.spec.whatwg.org/">https://xhr.spec.whatwg.org/</a>&gt;.</dd></dl></section></section><section id="examples"><h2 id="rfc.section.A" class="np"><a href="#rfc.section.A">A.</a>&nbsp;<a href="#examples">Examples</a></h2><div id="rfc.section.A.p.1"><p>This section shows how some of the existing HTTP header fields would look like if they would use the format defined by this specification.</p></div><section id="example.content-length"><h3 id="rfc.section.A.1"><a href="#rfc.section.A.1">A.1</a>&nbsp;<a href="#example.content-length">Content-Length</a></h3><div id="rfc.section.A.1.p.1" class="avoidbreakafter"><p>"Content-Length" is defined in <a href="rfc7230.html#header.content-length" title="Content-Length">Section 3.3.2</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>, with the field value's ABNF being:</p></div><div id="rfc.figure.u.3"><pre class="inline">  Content-Length = 1*DIGIT
+</pre></div><div id="rfc.section.A.1.p.2"><p>So the field value is similar to a JSON number (<a href="#RFC7159"><cite title="The JavaScript Object Notation (JSON) Data Interchange Format">[RFC7159]</cite></a>, <a href="rfc7159.html#numbers" title="Numbers">Section 6</a>).</p></div><div id="rfc.section.A.1.p.3"><p>Content-Length is restricted to a single field instance, as it doesn't use the list production (as per <a href="rfc7230.html#field.order" title="Field Order">Section 3.2.2</a> of <a href="#RFC7230"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing">[RFC7230]</cite></a>). However, in practice multiple instances do occur, and the definition of the header field does indeed discuss how to handle these cases.</p></div><div id="rfc.section.A.1.p.4" class="avoidbreakafter"><p>If Content-Length was defined using the JSON format discussed here, the ABNF would be something like:</p></div><div id="rfc.figure.u.4"><pre class="inline">  Content-Length = #number
+                 ; number: <a href="#RFC7159"><cite title="The JavaScript Object Notation (JSON) Data Interchange Format">[RFC7159]</cite></a>, <a href="rfc7159.html#numbers" title="Numbers">Section 6</a>
+</pre></div><div id="rfc.section.A.1.p.5"><p>...and the prose definition would: </p><ul><li>restrict all numbers to be non-negative integers without fractions, and</li><li>require that the array of values is of length 1 (but allow the case where the array is longer, but all members represent the same value)</li></ul></div></section><section id="example.content-disposition"><h3 id="rfc.section.A.2"><a href="#rfc.section.A.2">A.2</a>&nbsp;<a href="#example.content-disposition">Content-Disposition</a></h3><div id="rfc.section.A.2.p.1"><p>Content-Disposition field values, defined in <a href="#RFC6266"><cite title="Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)">[RFC6266]</cite></a>, consist of a "disposition type" (a string), plus multiple parameters, of which at least one ("filename") sometime needs to carry non-ASCII characters.</p></div><div id="rfc.section.A.2.p.2" class="avoidbreakafter"><p>For instance, the first example in <a href="https://tools.ietf.org/html/rfc6266#section-5">Section 5</a> of <a href="#RFC6266"><cite title="Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)">[RFC6266]</cite></a>:</p></div><div id="rfc.figure.u.5"><pre class="text">  Attachment; filename=example.html
+</pre></div><div id="rfc.section.A.2.p.3" class="avoidbreakafter"><p>has a disposition type of "Attachment", with filename parameter value "example.html". A JSON representation of this information might be:</p></div><div id="rfc.figure.u.6"><pre class="text prettyprint">  {
+    "Attachment": {
+      "filename" : "example.html"
+    }
+  }
+</pre></div><div id="rfc.section.A.2.p.4" class="avoidbreakafter"><p>which would translate to a header field value of:</p></div><div id="rfc.figure.u.7"><pre class="text prettyprint">  { "Attachment": { "filename" : "example.html" } }
+</pre></div><div id="rfc.section.A.2.p.5" class="avoidbreakafter"><p>The third example in <a href="https://tools.ietf.org/html/rfc6266#section-5">Section 5</a> of <a href="#RFC6266"><cite title="Use of the Content-Disposition Header Field in the Hypertext Transfer Protocol (HTTP)">[RFC6266]</cite></a> uses a filename parameter containing non-US-ASCII characters:</p></div><div id="rfc.figure.u.8"><pre class="text">  attachment; filename*=UTF-8''%e2%82%ac%20rates
+</pre></div><div id="rfc.section.A.2.p.6"><p>Note that in this case, the "filename*" parameter uses the encoding defined in <a href="#RFC5987"><cite title="Character Set and Language Encoding for Hypertext Transfer Protocol (HTTP) Header Field Parameters">[RFC5987]</cite></a>, representing a filename starting with the Unicode character U+20AC (EURO SIGN), followed by " rates". If the definition of Content-Disposition would have used the format proposed here, the workaround involving the "parameter*" syntax would not have been needed at all.</p></div><div id="rfc.section.A.2.p.7" class="avoidbreakafter"><p>The JSON representation of this value could then be:</p></div><div id="rfc.figure.u.9"><pre class="text prettyprint">  { "attachment": { "filename" : "\u20AC rates" } }
+</pre></div></section><section id="example.www-authenticate"><h3 id="rfc.section.A.3"><a href="#rfc.section.A.3">A.3</a>&nbsp;<a href="#example.www-authenticate">WWW-Authenticate</a></h3><div id="rfc.section.A.3.p.1" class="avoidbreakafter"><p>The WWW-Authenticate header field value is defined in <a href="rfc7235.html#header.www-authenticate" title="WWW-Authenticate">Section 4.1</a> of <a href="#RFC7235"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Authentication">[RFC7235]</cite></a> as a list of "challenges":</p></div><div id="rfc.figure.u.10"><pre class="inline">   WWW-Authenticate = 1#challenge
+</pre></div><div id="rfc.section.A.3.p.2" class="avoidbreakafter"><p>...where a challenge consists of a scheme with optional parameters:</p></div><div id="rfc.figure.u.11"><pre class="inline">  challenge   = auth-scheme [ 1*SP ( token68 / #auth-param ) ]
+</pre></div><div id="rfc.section.A.3.p.3" class="avoidbreakafter"><p>An example for a complex header field value given in the definition of the header field is:</p></div><div id="rfc.figure.u.12"><pre class="text">  Newauth realm="apps", type=1, title="Login to \"apps\"",
+  Basic realm="simple"
+</pre><p>(line break added for readability)</p></div><div id="rfc.section.A.3.p.4" class="avoidbreakafter"><p>A possible JSON representation of this field value would be the array below:</p></div><div id="rfc.figure.u.13"><pre class="text prettyprint">  [
+    {
+      "Newauth" : {
+        "realm": "apps",
+        "type" : 1,
+        "title" : "Login to \"apps\""
+      }
+    },
+    {
+      "Basic" : {
+        "realm": "simple"
+      }
+    } 
+  ]
+</pre></div><div id="rfc.section.A.3.p.5" class="avoidbreakafter"><p>...which would translate to a header field value of:</p></div><div id="rfc.figure.u.14"><pre class="text">  { "Newauth" : { "realm": "apps", "type" : 1,
+                  "title": "Login to \"apps\"" }},
+  { "Basic" : { "realm": "simple"}}
+</pre></div></section><section id="example.accept-encoding"><h3 id="rfc.section.A.4"><a href="#rfc.section.A.4">A.4</a>&nbsp;<a href="#example.accept-encoding">Accept-Encoding</a></h3><div id="rfc.section.A.4.p.1" class="avoidbreakafter"><p>The Accept-Encoding header field value is defined in <a href="rfc7231.html#header.accept-encoding" title="Accept-Encoding">Section 5.3.4</a> of <a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a> as a list of codings, each of which allowing a weight parameter 'q':</p></div><div id="rfc.figure.u.15"><pre class="inline">   Accept-Encoding = #( codings [ weight ] )
+   codings         = content-coding / "identity" / "*"
+   weight          = OWS ";" OWS "q=" qvalue
+   qvalue          = ( "0" [ "." 0*3DIGIT ] )
+                   / ( "1" [ "." 0*3("0") ] )
+</pre></div><div id="rfc.section.A.4.p.2" class="avoidbreakafter"><p>An example for a complex header field value given in the definition of the header field is:</p></div><div id="rfc.figure.u.16"><pre class="text">  gzip;q=1.0, identity; q=0.5, *;q=0
+</pre></div><div id="rfc.section.A.4.p.3" class="avoidbreakafter"><p>Due to the defaulting rules for the quality value (<a href="#RFC7231"><cite title="Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content">[RFC7231]</cite></a>, <a href="rfc7231.html#quality.values" title="Quality Values">Section 5.3.1</a>), this could also be written as:</p></div><div id="rfc.figure.u.17"><pre class="text">  gzip, identity; q=0.5, *; q=0
+</pre></div><div id="rfc.section.A.4.p.4" class="avoidbreakafter"><p>A JSON representation could be:</p></div><div id="rfc.figure.u.18"><pre class="text prettyprint">  [
+    {
+      "gzip" : {
+      }
+    },
+    {
+      "identity" : {
+        "q": 0.5
+      }
+    },
+    {
+      "*" : {
+        "q": 0
+      }
+    }
+  ]
+</pre></div><div id="rfc.section.A.4.p.5" class="avoidbreakafter"><p>...which would translate to a header field value of:</p></div><div id="rfc.figure.u.19"><pre class="text">  {"gzip": {}}, {"identity": {"q": 0.5}}, {"*": {"q": 0}}
+</pre></div><div id="rfc.section.A.4.p.6" class="avoidbreakafter"><p>In this example, the part about "gzip" appears unnecessarily verbose, as the value is just an empty object. A simpler notation would collapse members like these to string literals:</p></div><div id="rfc.figure.u.20"><pre class="text">  "gzip", {"identity": {"q": 0.5}}, {"*": {"q": 0}}
+</pre></div><div id="rfc.section.A.4.p.7"><p>If this is desirable, the header field definition could allow both string literals and objects, and define that a mere string literal would be mapped to a member whose name is given by the string literal, and the value is an empty object.</p></div><div id="rfc.figure.u.21"><p>For what it's worth, one of the most common cases for 'Accept-Encoding' would become:</p><pre class="text">  "gzip", "deflate"
+</pre><p>which would be only a small overhead over the original format.</p></div></section></section><section id="n-discussion"><h2 id="rfc.section.B"><a href="#rfc.section.B">B.</a>&nbsp;<a href="#n-discussion">Discussion</a></h2><div id="rfc.section.B.p.1"><p>This approach uses a default of "JSON array", using implicit array markers. An alternative would be a default of "JSON object". This would simplify the syntax for non-list-typed header fields, but all the benefits of having the same data model for both types of header fields would be gone. A hybrid approach might make sense, as long as it doesn't require any heuristics on the recipient's side.</p></div><aside><div id="rfc.section.B.p.2"><p><b>Note:</b> a concrete proposal was made by Kazuho Oku in &lt;<a href="https://lists.w3.org/Archives/Public/ietf-http-wg/2016JanMar/0155.html">https://lists.w3.org/Archives/Public/ietf-http-wg/2016JanMar/0155.html</a>&gt;.</p></div></aside><div id="rfc.section.B.p.3"><p><span class="comment" id="rfc.comment.2">[<a href="#rfc.comment.2" class="smpl">rfc.comment.2</a>: Use of generic libs vs compactness of field values..]</span> </p></div><div id="rfc.section.B.p.4"><p><span class="comment" id="rfc.comment.3">[<a href="#rfc.comment.3" class="smpl">rfc.comment.3</a>: Mention potential "Key" header field extension (<a href="#KEY"><cite title="The Key HTTP Response Header Field">[KEY]</cite></a>).]</span> </p></div></section><section id="change.log"><h2 id="rfc.section.C"><a href="#rfc.section.C">C.</a>&nbsp;<a href="#change.log">Change Log (to be removed by RFC Editor before publication)</a></h2><section id="changes.since.00"><h3 id="rfc.section.C.1"><a href="#rfc.section.C.1">C.1</a>&nbsp;<a href="#changes.since.00">Since draft-reschke-http-jfv-00</a></h3><div id="rfc.section.C.1.p.1"><p>Editorial fixes + working on the TODOs.</p></div></section><section id="changes.since.01"><h3 id="rfc.section.C.2"><a href="#rfc.section.C.2">C.2</a>&nbsp;<a href="#changes.since.01">Since draft-reschke-http-jfv-01</a></h3><div id="rfc.section.C.2.p.1"><p>Mention slightly increased risk of smuggling information in header field values.</p></div></section><section id="changes.since.02"><h3 id="rfc.section.C.3"><a href="#rfc.section.C.3">C.3</a>&nbsp;<a href="#changes.since.02">Since draft-reschke-http-jfv-02</a></h3><div id="rfc.section.C.3.p.1"><p>Mention Kazuho Oku's proposal for abbreviated forms.</p></div><div id="rfc.section.C.3.p.2"><p>Added a bit of text about the motivation for a concrete JSON subset (ack Cory Benfield).</p></div><div id="rfc.section.C.3.p.3"><p>Expand I18N section.</p></div></section><section id="changes.since.03"><h3 id="rfc.section.C.4"><a href="#rfc.section.C.4">C.4</a>&nbsp;<a href="#changes.since.03">Since draft-reschke-http-jfv-03</a></h3><div id="rfc.section.C.4.p.1"><p>Mention relation to KEY header field.</p></div></section><section id="changes.since.04"><h3 id="rfc.section.C.5"><a href="#rfc.section.C.5">C.5</a>&nbsp;<a href="#changes.since.04">Since draft-reschke-http-jfv-04</a></h3><div id="rfc.section.C.5.p.1"><p>Change to HTTP Working Group draft.</p></div></section><section id="changes.since.wg.00"><h3 id="rfc.section.C.6"><a href="#rfc.section.C.6">C.6</a>&nbsp;<a href="#changes.since.wg.00">Since draft-ietf-httpbis-jfv-00</a></h3><div id="rfc.section.C.6.p.1"><p>Added example for "Accept-Encoding" (inspired by Kazuho's feedback), showing a potential way to optimize the format when default values apply.</p></div></section><section id="changes.since.wg.01"><h3 id="rfc.section.C.7"><a href="#rfc.section.C.7">C.7</a>&nbsp;<a href="#changes.since.wg.01">Since draft-ietf-httpbis-jfv-01</a></h3><div id="rfc.section.C.7.p.1"><p>Add interop discussion, building on I-JSON and ECMA-262 (see &lt;<a href="https://github.com/httpwg/http-extensions/issues/225">https://github.com/httpwg/http-extensions/issues/225</a>&gt;).</p></div></section><section id="changes.since.wg.02"><h3 id="rfc.section.C.8"><a href="#rfc.section.C.8">C.8</a>&nbsp;<a href="#changes.since.wg.02">Since draft-ietf-httpbis-jfv-02</a></h3><div id="rfc.section.C.8.p.1"><p>Move non-essential parts into appendix.</p></div><div id="rfc.section.C.8.p.2"><p>Updated XHR reference.</p></div></section></section><section id="acks"><h2 id="rfc.section.unnumbered-1"><a href="#acks">Acknowledgements</a></h2><div id="rfc.section.unnumbered-1.p.1"><p>Thanks go to the Hypertext Transfer Protocol Working Group participants.   </p></div></section><section id="rfc.authors" class="avoidbreakinside"><h2><a href="#rfc.authors">Author's Address</a></h2><p><b>Julian F. Reschke</b><br>greenbytes GmbH<br>Hafenweg 16<br>Muenster, NW&nbsp;48155<br>Germany<br>Email: <a href="mailto:julian.reschke@greenbytes.de">julian.reschke@greenbytes.de</a><br>URI: <a href="http://greenbytes.de/tech/webdav/">http://greenbytes.de/tech/webdav/</a></p></section></div></div></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script></body></html>

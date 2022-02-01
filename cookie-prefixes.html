@@ -1,0 +1,143 @@
+<!DOCTYPE html
+  SYSTEM "about:legacy-compat">
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><title>Cookie Prefixes</title><script type="application/javascript">
+function anchorRewrite() {
+  map = { };
+  if (window.location.hash.length >= 1) {
+    var fragid = window.location.hash.substr(1);
+    if (fragid) {
+      if (! document.getElementById(fragid)) {
+        var prefix = "rfc.";
+        var mapped = map[fragid];
+        if (mapped) {
+          window.location.hash = mapped;
+        } else if (fragid.indexOf("section-") == 0) {
+          window.location.hash = prefix + "section." + fragid.substring(8);
+        } else if (fragid.indexOf("appendix-") == 0) {
+          window.location.hash = prefix + "section." + fragid.substring(9);
+        } else if (fragid.indexOf("s-") == 0) {
+          var postfix = fragid.substring(2);
+          if (postfix.startsWith("abstract")) {
+            window.location.hash = prefix + postfix;
+          } else if (postfix.startsWith("note-")) {
+            window.location.hash = prefix + "note." + postfix.substring(5);
+          } else {
+            window.location.hash = prefix + "section." + postfix;
+          }
+        } else if (fragid.indexOf("p-") == 0) {
+          var r = fragid.substring(2);
+          var p = r.indexOf("-");
+          if (p >= 0) {
+            window.location.hash = prefix + "section." + r.substring(0, p) + ".p." + r.substring(p + 1);
+          }
+        }
+      }
+    }  
+  }
+}
+window.addEventListener('hashchange', anchorRewrite);
+window.addEventListener('DOMContentLoaded', anchorRewrite);
+</script><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"><style type="text/css">
+      body {
+        padding-top: 80px;
+        padding-bottom: 80px;
+        position: relative;
+      }
+      .table.header th, .table.header td {
+        border-top: none;
+        padding: 0;
+      }
+      #rfc\.meta {
+        width: 40%;
+        float: right
+      }
+      #rfc\.toc > ul li {
+        list-style: none;
+      }
+      .container .nav-sublist {
+        padding-left: 20px;
+        padding-right: 10px;
+        font-size: 90%;
+      }
+      .container .navbar-brand {
+        padding-top: 0;
+      }
+      .container .nav > li > a {
+        padding: 10px 7px 5px 15px;
+        display: inline-block;
+      }
+      .container .nav > li > a + a {
+        padding: 10px 15px 5px 7px;
+        display: inline-block;
+      }
+      .container .nav > li > a {
+        padding: 5px 10px;
+      }
+      .filename {
+        color: rgb(119, 119, 119);
+        font-size: 23px;
+        font-weight: normal;
+        height: auto;
+        line-height: 23px;
+      }
+      dl {
+        margin-left: 1em;
+      }
+      dl.dl-horizontal: {
+        margin-left: 0;
+      }
+      dl > dt {
+        float: left;
+        margin-right: 1em;
+      }
+      dl.nohang > dt {
+        float: none;
+      }
+      dl > dd {
+        margin-bottom: .5em;
+      }
+      dl.compact > dd {
+        margin-bottom: 0em;
+      }
+      dl > dd > dl {
+        margin-top: 0.5em;
+        margin-bottom: 0em;
+      }
+      ul.empty {
+        list-style-type: none;
+      }
+      ul.empty li {
+        margin-top: .5em;
+      }
+      td.reference {
+        padding-right: 1em;
+        vertical-align: top;
+      }
+      .feedback {
+        position: fixed;
+        bottom: 5px;
+        right: 5px;
+      }
+      .fbbutton {
+        margin-left: 5px;
+      }
+      h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+        color: rgb(51, 51, 51);
+      }
+      span.tt {
+        font: 11pt consolas, monospace;
+        font-size-adjust: none;
+      }
+    </style><link rel="Author" href="#rfc.authors"><link rel="Copyright" href="#rfc.copyrightnotice"><link rel="Chapter" title="1 Introduction" href="#rfc.section.1"><link rel="Chapter" title="2 Terminology and notation" href="#rfc.section.2"><link rel="Chapter" title="3 Prefixes" href="#rfc.section.3"><link rel="Chapter" title="4 User Agent Requirements" href="#rfc.section.4"><link rel="Chapter" title="5 Aesthetic Considerations" href="#rfc.section.5"><link rel="Chapter" title="6 Security Considerations" href="#rfc.section.6"><link rel="Chapter" href="#rfc.section.7" title="7 References"><link rel="Appendix" title="A Acknowledgements" href="#rfc.section.A"><meta name="generator" content="https://github.com/mnot/RFCBootstrap XSLT vendor: SAXON 9.1.0.8 from Saxonica http://www.saxonica.com/"><meta name="keywords" content="Cookie"><link rel="schema.dcterms" href="http://purl.org/dc/terms/"><meta name="dcterms.creator" content="West, M."><meta name="dcterms.identifier" content="urn:ietf:id:draft-ietf-httpbis-cookie-prefixes-00"><meta name="dcterms.issued" content="2017-05-18"><meta name="dcterms.abstract" content="This document updates RFC6265 by adding a set of restrictions upon the names which may be used for cookies with specific properties. These restrictions enable user agents to smuggle cookie state to the server within the confines of the existing Cookie request header syntax, and limits the ways in which cookies may be abused in a conforming user agent."><meta name="description" content="This document updates RFC6265 by adding a set of restrictions upon the names which may be used for cookies with specific properties. These restrictions enable user agents to smuggle cookie state to the server within the confines of the existing Cookie request header syntax, and limits the ways in which cookies may be abused in a conforming user agent."></head><body><div class="container" id="top"><div class="row"><div class="col-md-4 col-md-push-8 hidden-sm hidden-xs" role="navigation"><div class="navbar"><div class="navbar-brand"><a href="#top">Internet-Draft</a></div><br clear="all"><div class=""><div id="rfc..toc"><ul class="nav"><li><a href="#rfc.section.1">1.</a>&nbsp;&nbsp;&nbsp;<a href="#introduction">Introduction</a></li><li><a href="#rfc.section.2">2.</a>&nbsp;&nbsp;&nbsp;<a href="#terminology-and-notation">Terminology and notation</a></li><li><a href="#rfc.section.3">3.</a>&nbsp;&nbsp;&nbsp;<a href="#prefixes">Prefixes</a><ul><li><a href="#rfc.section.3.1">3.1.</a>&nbsp;&nbsp;&nbsp;<a href="#the-secure-prefix">The “__Secure-“ prefix</a></li><li><a href="#rfc.section.3.2">3.2.</a>&nbsp;&nbsp;&nbsp;<a href="#the-host-prefix">The “__Host-“ prefix</a></li></ul></li><li><a href="#rfc.section.4">4.</a>&nbsp;&nbsp;&nbsp;<a href="#user-agent-requirements">User Agent Requirements</a></li><li><a href="#rfc.section.5">5.</a>&nbsp;&nbsp;&nbsp;<a href="#aesthetic-considerations">Aesthetic Considerations</a><ul><li><a href="#rfc.section.5.1">5.1.</a>&nbsp;&nbsp;&nbsp;<a href="#not-pretty">Not pretty.</a></li><li><a href="#rfc.section.5.2">5.2.</a>&nbsp;&nbsp;&nbsp;<a href="#why-">Why “__”?</a></li></ul></li><li><a href="#rfc.section.6">6.</a>&nbsp;&nbsp;&nbsp;<a href="#security-considerations">Security Considerations</a><ul><li><a href="#rfc.section.6.1">6.1.</a>&nbsp;&nbsp;&nbsp;<a href="#secure-origins-only">Secure Origins Only</a></li><li><a href="#rfc.section.6.2">6.2.</a>&nbsp;&nbsp;&nbsp;<a href="#limitations">Limitations</a></li></ul></li><li><a href="#rfc.section.7">7.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references">References</a><ul><li><a href="#rfc.section.7.1">7.1.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references.1">Normative References</a></li><li><a href="#rfc.section.7.2">7.2.</a>&nbsp;&nbsp;&nbsp;<a href="#rfc.references.2">Informative References</a></li></ul></li><li><a href="#rfc.section.A">A.</a>&nbsp;&nbsp;&nbsp;<a href="#acknowledgements">Acknowledgements</a></li><li><a href="#rfc.authors">Author's Address</a></li></ul></div></div></div></div><div class="col-md-8 col-md-pull-4 main" role="main"><header><table class="table table-condensed header" id="rfc.headerblock"><tbody><tr><td class="text-left">HTTP Working Group</td><td class="text-right">M. West</td></tr><tr><td class="text-left">Internet-Draft</td><td class="text-right">Google, Inc</td></tr><tr><td class="text-left">Updates: <a href="https://tools.ietf.org/html/rfc6265">6265</a> (if approved)</td><td class="text-right">May 18, 2017</td></tr><tr><td class="text-left">Intended status: Standards Track</td><td class="text-right"></td></tr><tr><td class="text-left">Expires: November 19, 2017</td><td class="text-right"></td></tr></tbody></table><div id="rfc.title"><h1>Cookie Prefixes</h1><div class="filename">draft-ietf-httpbis-cookie-prefixes-00</div></div></header><hr><h2 id="rfc..abstract"><a href="#rfc..abstract">Abstract</a></h2><div class="lead"><div id="rfc.abstract.p.1"><p>This document updates RFC6265 by adding a set of restrictions upon the names which may be used for cookies with specific properties. These restrictions enable user agents to smuggle cookie state to the server within the confines of the existing <span class="tt">Cookie</span> request header syntax, and limits the ways in which cookies may be abused in a conforming user agent.</p></div></div><section id="rfc.note.1" class="note"><h2><a href="#rfc.note.1">Note to Readers</a></h2><div id="rfc.note.1.p.1"><p>Discussion of this draft takes place on the HTTP working group mailing list (ietf-http-wg@w3.org), which is archived at <a href="https://lists.w3.org/Archives/Public/ietf-http-wg/">https://lists.w3.org/Archives/Public/ietf-http-wg/</a>.</p></div><div id="rfc.note.1.p.2"><p>Working Group information can be found at <a href="http://httpwg.github.io/">http://httpwg.github.io/</a>; source code and issues list for this draft can be found at <a href="https://github.com/httpwg/http-extensions/labels/cookie-prefixes">https://github.com/httpwg/http-extensions/labels/cookie-prefixes</a>.</p></div></section><section id="rfc.status"><h2><a href="#rfc.status">Status of this Memo</a></h2><div id="rfc.boilerplate.1.p.1"><p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p></div><div id="rfc.boilerplate.1.p.2"><p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF). Note that other groups may also distribute working documents as Internet-Drafts. The list of current Internet-Drafts is at <a href="http://datatracker.ietf.org/drafts/current/">http://datatracker.ietf.org/drafts/current/</a>.</p></div><div id="rfc.boilerplate.1.p.3"><p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time. It is inappropriate to use Internet-Drafts as reference material or to cite them other than as “work in progress”.</p></div><div id="rfc.boilerplate.1.p.4"><p>This Internet-Draft will expire on November 19, 2017.</p></div></section><section id="rfc.copyrightnotice"><h2><a href="#rfc.copyrightnotice">Copyright Notice</a></h2><div id="rfc.boilerplate.2.p.1"><p>Copyright © 2017 IETF Trust and the persons identified as the document authors. All rights reserved.</p></div><div id="rfc.boilerplate.2.p.2"><p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (<a href="http://trustee.ietf.org/license-info">http://trustee.ietf.org/license-info</a>) in effect on the date of publication of this document. Please review these documents carefully, as they describe your rights and restrictions with respect to this document. Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p></div></section><section id="introduction"><h2 id="rfc.section.1" class="np"><a href="#rfc.section.1">1.</a>&nbsp;<a href="#introduction">Introduction</a></h2><div id="rfc.section.1.p.1"><p>Section 8.5 and Section 8.6 of <a href="#RFC6265"><cite title="HTTP State Management Mechanism">[RFC6265]</cite></a> spell out some of the drawbacks of cookies’ implementation: due to historical accident, it is impossible for a server to have confidence that a cookie set in a secure way (e.g., as a domain cookie with the <span class="tt">Secure</span> (and possibly <span class="tt">HttpOnly</span>) flags set) remains intact and untouched by non-secure subdomains.</p></div><div id="rfc.section.1.p.2"><p>We can’t alter the syntax of the <span class="tt">Cookie</span> request header, as that would likely break a number of implementations. This rules out sending a cookie’s flags along with the cookie directly, but we can smuggle information along with the cookie if we reserve certain name prefixes for cookies with certain properties.</p></div><div id="rfc.section.1.p.3"><p>This document describes such a scheme, which enables servers to set cookies which conforming user agents will ensure are <span class="tt">Secure</span>, and locked to a domain.</p></div></section><section id="terminology-and-notation"><h2 id="rfc.section.2"><a href="#rfc.section.2">2.</a>&nbsp;<a href="#terminology-and-notation">Terminology and notation</a></h2><div id="rfc.section.2.p.1"><p>The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in <a href="#RFC2119"><cite title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</cite></a>.</p></div><div id="rfc.section.2.p.2"><p>The <span class="tt">scheme</span> component of a URI is defined in Section 3 of <a href="#RFC3986"><cite title="Uniform Resource Identifier (URI): Generic Syntax">[RFC3986]</cite></a>.</p></div></section><section id="prefixes"><h2 id="rfc.section.3"><a href="#rfc.section.3">3.</a>&nbsp;<a href="#prefixes">Prefixes</a></h2><section id="the-secure-prefix"><h3 id="rfc.section.3.1"><a href="#rfc.section.3.1">3.1.</a>&nbsp;<a href="#the-secure-prefix">The “__Secure-“ prefix</a></h3><div id="rfc.section.3.1.p.1" class="avoidbreakafter"><p>If a cookie’s name begins with “__Secure-“, the cookie MUST be:</p></div><div id="rfc.section.3.1.p.2"><ol><li>Set with a <span class="tt">Secure</span> attribute</li><li>Set from a URI whose <span class="tt">scheme</span> is considered “secure” by the user agent.</li></ol></div><div id="rfc.section.3.1.p.3"><p>The following cookie would be rejected when set from any origin, as the <span class="tt">Secure</span> flag is not set</p></div><div id="rfc.figure.u.1"><pre>
+Set-Cookie: __Secure-SID=12345; Domain=example.com
+</pre></div><div id="rfc.section.3.1.p.4" class="avoidbreakafter"><p>While the following would be accepted if set from a secure origin (e.g. <span class="tt">https://example.com/</span>), and rejected otherwise:</p></div><div id="rfc.figure.u.2"><pre>
+Set-Cookie: __Secure-SID=12345; Secure; Domain=example.com
+</pre></div></section><section id="the-host-prefix"><h3 id="rfc.section.3.2"><a href="#rfc.section.3.2">3.2.</a>&nbsp;<a href="#the-host-prefix">The “__Host-“ prefix</a></h3><div id="rfc.section.3.2.p.1" class="avoidbreakafter"><p>If a cookie’s name begins with “__Host-“, the cookie MUST be:</p></div><div id="rfc.section.3.2.p.2"><ol><li>Set with a <span class="tt">Secure</span> attribute</li><li>Set from a URI whose <span class="tt">scheme</span> is considered “secure” by the user agent.</li><li>Sent only to the host which set the cookie. That is, a cookie named “__Host-cookie1” set from <span class="tt">https://example.com</span> MUST NOT contain a <span class="tt">Domain</span> attribute (and will therefore be sent only to <span class="tt">example.com</span>, and not to <span class="tt">subdomain.example.com</span>).</li><li>Sent to every request for a host. That is, a cookie named “__Host-cookie1” MUST contain a <span class="tt">Path</span> attribute with a value of “/”.</li></ol></div><div id="rfc.section.3.2.p.3" class="avoidbreakafter"><p>The following cookies would always be rejected:</p></div><div id="rfc.figure.u.3"><pre>
+Set-Cookie: __Host-SID=12345
+Set-Cookie: __Host-SID=12345; Secure
+Set-Cookie: __Host-SID=12345; Domain=example.com
+Set-Cookie: __Host-SID=12345; Domain=example.com; Path=/
+Set-Cookie: __Host-SID=12345; Secure; Domain=example.com; Path=/
+</pre></div><div id="rfc.section.3.2.p.4" class="avoidbreakafter"><p>While the following would be accepted if set from a secure origin (e.g. <span class="tt">https://example.com/</span>), and rejected otherwise:</p></div><div id="rfc.figure.u.4"><pre>
+Set-Cookie: __Host-SID=12345; Secure; Path=/
+</pre></div></section></section><section id="user-agent-requirements"><h2 id="rfc.section.4"><a href="#rfc.section.4">4.</a>&nbsp;<a href="#user-agent-requirements">User Agent Requirements</a></h2><div id="rfc.section.4.p.1" class="avoidbreakafter"><p>This document updates Section 5.3 of <a href="#RFC6265"><cite title="HTTP State Management Mechanism">[RFC6265]</cite></a> as follows:</p></div><div id="rfc.section.4.p.2" class="avoidbreakafter"><p>After step 10 of the current algorithm, the cookies flags are set. Insert the following steps to perform the prefix checks this document specifies:</p></div><div id="rfc.section.4.p.3"><ol><li>If the <span class="tt">cookie-name</span> begins with the string “__Secure-“ or “__Host-“, abort these steps and ignore the cookie entirely unless both of the following conditions are true: <ul><li>The cookie’s <span class="tt">secure-only-flag</span> is <span class="tt">true</span></li><li><span class="tt">request-uri</span>’s <span class="tt">scheme</span> component denotes a “secure” protocol (as determined by the user agent)</li></ul></li><li>If the <span class="tt">cookie-name</span> begins with the string “__Host-“, abort these steps and ignore the cookie entirely unless the following conditions are true: <ul><li>The cookie’s <span class="tt">host-only-flag</span> is <span class="tt">true</span></li><li>The cookie’s <span class="tt">path</span> is “/”</li></ul></li></ol></div></section><section id="aesthetic-considerations"><h2 id="rfc.section.5"><a href="#rfc.section.5">5.</a>&nbsp;<a href="#aesthetic-considerations">Aesthetic Considerations</a></h2><section id="not-pretty"><h3 id="rfc.section.5.1"><a href="#rfc.section.5.1">5.1.</a>&nbsp;<a href="#not-pretty">Not pretty.</a></h3><div id="rfc.section.5.1.p.1"><p>Prefixes are ugly. :(</p></div></section><section id="why-"><h3 id="rfc.section.5.2"><a href="#rfc.section.5.2">5.2.</a>&nbsp;<a href="#why-">Why “__”?</a></h3><div id="rfc.section.5.2.p.1"><p>We started with <span class="tt">$</span>, but ran into issues with servers that had implemented <a href="#RFC2109"><cite title="HTTP State Management Mechanism">[RFC2109]</cite></a>-style cookies. <span class="tt">__</span> is a prefix used for a number of well-known cookies in the wild (notably Google Analytics’s <span class="tt">__ut*</span> cookies, and CloudFlare’s <span class="tt">__cfduid</span>), and so is unlikely to produce such compatibility issues, while being uncommon enough to mitigate the risk of collisions.</p></div></section></section><section id="security-considerations"><h2 id="rfc.section.6"><a href="#rfc.section.6">6.</a>&nbsp;<a href="#security-considerations">Security Considerations</a></h2><section id="secure-origins-only"><h3 id="rfc.section.6.1"><a href="#rfc.section.6.1">6.1.</a>&nbsp;<a href="#secure-origins-only">Secure Origins Only</a></h3><div id="rfc.section.6.1.p.1"><p>It would certainly be possible to extend this scheme to non-secure origins (and an earlier draft of this document did exactly that). User agents, however, are slowly moving towards a world where features with security implications are available only over secure transport (see <a href="#SECURE-CONTEXTS"><cite title="Secure Contexts">[SECURE-CONTEXTS]</cite></a>, <a href="#POWERFUL-FEATURES"><cite title="Prefer Secure Origins for Powerful New Features">[POWERFUL-FEATURES]</cite></a>, and <a href="#DEPRECATING-HTTP"><cite title="Deprecating Non-Secure HTTP">[DEPRECATING-HTTP]</cite></a>). This document follows that trend, limiting exciting new cookie properties to secure transport in order to ensure that user agents can make claims which middlemen will have a hard time violating.</p></div><div id="rfc.section.6.1.p.2"><p>To that end, note that the requirements listed above mean that prefixed cookies will be rejected entirely if a non-secure origin attempts to set them.</p></div></section><section id="limitations"><h3 id="rfc.section.6.2"><a href="#rfc.section.6.2">6.2.</a>&nbsp;<a href="#limitations">Limitations</a></h3><div id="rfc.section.6.2.p.1"><p>This scheme gives no assurance to the server that the restrictions on cookie names are enforced. Servers could certainly probe the user agent’s functionality to determine support, or sniff based on the <span class="tt">User-Agent</span> request header, if such assurances were deemed necessary.</p></div></section></section><section id="rfc.references"><h2 id="rfc.section.7"><a href="#rfc.section.7">7.</a> References</h2><section id="rfc.references.1"><h3 id="rfc.section.7.1"><a href="#rfc.section.7.1">7.1.</a> Normative References</h3><dl class="dl-horizontal"><dt id="RFC2119">[RFC2119]</dt><dd>Bradner, S., “<a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>”, BCP&nbsp;14, RFC&nbsp;2119, <a href="http://dx.doi.org/10.17487/RFC2119">DOI&nbsp;10.17487/RFC2119</a>, March&nbsp;1997, &lt;<a href="http://www.rfc-editor.org/info/rfc2119">http://www.rfc-editor.org/info/rfc2119</a>&gt;.</dd><dt id="RFC3986">[RFC3986]</dt><dd>Berners-Lee, T., Fielding, R., and L. Masinter, “<a href="https://tools.ietf.org/html/rfc3986">Uniform Resource Identifier (URI): Generic Syntax</a>”, STD&nbsp;66, RFC&nbsp;3986, <a href="http://dx.doi.org/10.17487/RFC3986">DOI&nbsp;10.17487/RFC3986</a>, January&nbsp;2005, &lt;<a href="http://www.rfc-editor.org/info/rfc3986">http://www.rfc-editor.org/info/rfc3986</a>&gt;.</dd><dt id="RFC6265">[RFC6265]</dt><dd>Barth, A., “<a href="https://tools.ietf.org/html/rfc6265">HTTP State Management Mechanism</a>”, RFC&nbsp;6265, <a href="http://dx.doi.org/10.17487/RFC6265">DOI&nbsp;10.17487/RFC6265</a>, April&nbsp;2011, &lt;<a href="http://www.rfc-editor.org/info/rfc6265">http://www.rfc-editor.org/info/rfc6265</a>&gt;.</dd></dl></section><section id="rfc.references.2"><h3 id="rfc.section.7.2"><a href="#rfc.section.7.2">7.2.</a> Informative References</h3><dl class="dl-horizontal"><dt id="DEPRECATING-HTTP">[DEPRECATING-HTTP]</dt><dd>Barnes, R., “<a href="https://blog.mozilla.org/security/2015/04/30/deprecating-non-secure-http/">Deprecating Non-Secure HTTP</a>”, April&nbsp;2015, &lt;<a href="https://blog.mozilla.org/security/2015/04/30/deprecating-non-secure-http/">https://blog.mozilla.org/security/2015/04/30/deprecating-non-secure-http/</a>&gt;.</dd><dt id="Lawrence2015">[Lawrence2015]</dt><dd>Lawrence, E., “<a href="http://textslashplain.com/2015/10/09/duct-tape-and-baling-wirecookie-prefixes/">Duct Tape and Baling Wire -- Cookie Prefixes</a>”, October&nbsp;2015, &lt;<a href="http://textslashplain.com/2015/10/09/duct-tape-and-baling-wirecookie-prefixes/">http://textslashplain.com/2015/10/09/duct-tape-and-baling-wirecookie-prefixes/</a>&gt;.</dd><dt id="POWERFUL-FEATURES">[POWERFUL-FEATURES]</dt><dd>Palmer, C., “<a href="https://www.chromium.org/Home/chromium-security/prefer-secure-origins-for-powerful-new-features">Prefer Secure Origins for Powerful New Features</a>”, 2015, &lt;<a href="https://www.chromium.org/Home/chromium-security/prefer-secure-origins-for-powerful-new-features">https://www.chromium.org/Home/chromium-security/prefer-secure-origins-for-powerful-new-features</a>&gt;.</dd><dt id="RFC2109">[RFC2109]</dt><dd>Kristol, D. and L. Montulli, “<a href="https://tools.ietf.org/html/rfc2109">HTTP State Management Mechanism</a>”, RFC&nbsp;2109, <a href="http://dx.doi.org/10.17487/RFC2109">DOI&nbsp;10.17487/RFC2109</a>, February&nbsp;1997, &lt;<a href="http://www.rfc-editor.org/info/rfc2109">http://www.rfc-editor.org/info/rfc2109</a>&gt;.</dd><dt id="SECURE-CONTEXTS">[SECURE-CONTEXTS]</dt><dd>West, M., “<a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Contexts</a>”, 2016, &lt;<a href="https://w3c.github.io/webappsec-secure-contexts/">https://w3c.github.io/webappsec-secure-contexts/</a>&gt;.</dd></dl></section></section><section id="acknowledgements"><h2 id="rfc.section.A" class="np"><a href="#rfc.section.A">A.</a>&nbsp;<a href="#acknowledgements">Acknowledgements</a></h2><div id="rfc.section.A.p.1"><p>Eric Lawrence had this idea a million years ago, and wrote about its genesis in <a href="#Lawrence2015"><cite title="Duct Tape and Baling Wire -- Cookie Prefixes">[Lawrence2015]</cite></a>. Devdatta Akhawe helped justify the potential impact of the scheme on real-world websites. Thomas Broyer pointed out the issues with a leading <span class="tt">$</span> in the prefixes, and Brian Smith provided valuable contributions to the discussion around a replacement (ISO C indeed).</p></div></section><section id="rfc.authors" class="avoidbreakinside"><h2><a href="#rfc.authors">Author's Address</a></h2><address><b>Mike West</b><br>Google, Inc<br>EMail: <a href="mailto:mkwst@google.com">mkwst@google.com</a><br>URI: <a href="https://mikewest.org/">https://mikewest.org/</a></address></section></div></div></div><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script></body></html>
