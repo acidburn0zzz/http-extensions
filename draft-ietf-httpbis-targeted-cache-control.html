@@ -9,15 +9,15 @@
 <meta content="Mark Nottingham" name="author">
 <meta content="Yuchen Wu" name="author">
 <meta content="
-       This specification defines a convention for HTTP response header fields that allow cache directives to be targeted at specific caches or classes of caches. It also defines one such header field, targeted at Content Delivery Network (CDN) caches. 
+       This specification defines a convention for HTTP response header fields that allow cache directives to be targeted at specific caches or classes of caches. It also defines one such header field, the CDN-Cache-Control response header field, which is targeted at content delivery network (CDN) caches. 
     " name="description">
-<meta content="xml2rfc 3.11.1" name="generator">
+<meta content="xml2rfc 3.12.3" name="generator">
 <meta content="CDN" name="keyword">
 <meta content="Content Delivery Network" name="keyword">
 <meta content="Caching" name="keyword">
 <meta content="draft-ietf-httpbis-targeted-cache-control" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.11.1
+  xml2rfc 3.12.3
     Python 3.9.7
     appdirs 1.4.4
     ConfigArgParse 1.3
@@ -26,7 +26,8 @@
     intervaltree 3.1.0
     Jinja2 2.11.3
     kitchen 1.2.6
-    lxml 4.6.4
+    lxml 4.6.5
+    MarkupSafe 2.0.1
     pycountry 20.7.3
     pyflakes 2.3.1
     PyYAML 5.4.1
@@ -1016,11 +1017,11 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Targeted HTTP Cache Control</td>
-<td class="right">December 2021</td>
+<td class="right">March 2022</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ludin, et al.</td>
-<td class="center">Expires 4 June 2022</td>
+<td class="center">Expires 24 September 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1033,12 +1034,12 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <dd class="internet-draft">draft-ietf-httpbis-targeted-cache-control</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-12-01" class="published">1 December 2021</time>
+<time datetime="2022-03-23" class="published">23 March 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-06-04">4 June 2022</time></dd>
+<dd class="expires"><time datetime="2022-09-24">24 September 2022</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1059,20 +1060,22 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <h1 id="title">Targeted HTTP Cache Control</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">This specification defines a convention for HTTP response header fields that allow cache directives to be targeted at specific caches or classes of caches. It also defines one such header field, targeted at Content Delivery Network (CDN) caches.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">This specification defines a convention for HTTP response header fields that allow cache directives to be targeted at specific caches or classes of caches. It also defines one such header field, the CDN-Cache-Control response header field, which is targeted at content delivery network (CDN) caches.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
-      <h2 id="name-discussion-venues">
-<a href="#name-discussion-venues" class="section-name selfRef">Discussion Venues</a>
+      <h2 id="name-about-this-document">
+<a href="#name-about-this-document" class="section-name selfRef">About This Document</a>
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-ietf-httpbis-targeted-cache/">https://datatracker.ietf.org/doc/draft-ietf-httpbis-targeted-cache/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">
         Discussion of this document takes place on the
         HTTP Working Group mailing list (<span><a href="mailto:ietf-http-wg@w3.org">mailto:ietf-http-wg@w3.org</a></span>),
         which is archived at <span><a href="https://lists.w3.org/Archives/Public/ietf-http-wg/">https://lists.w3.org/Archives/Public/ietf-http-wg/</a></span>.
-        Working Group information can be found at <span><a href="https://httpwg.org/">https://httpwg.org/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
-<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/httpwg/http-extensions/labels/targeted-cc">https://github.com/httpwg/http-extensions/labels/targeted-cc</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+        Working Group information can be found at <span><a href="https://httpwg.org/">https://httpwg.org/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/httpwg/http-extensions/labels/targeted-cc">https://github.com/httpwg/http-extensions/labels/targeted-cc</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1093,7 +1096,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 June 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 September 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1102,7 +1105,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2021 IETF Trust and the persons identified as the
+            Copyright (c) 2022 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1184,19 +1187,19 @@ svg [stroke="fill"], svg [fill^="#fff"] {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">Modern deployments of HTTP often use multiple layers of caching. For example, a Web site might use a cache on the origin server itself; it might deploy a caching layer in the same network as the origin server, it might use one or more Content Delivery Networks (CDNs) that are distributed throughout the Internet, and it might utilise browser caching as well.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">Because it is often desirable to control these different classes of caches separately, some means of targeting directives at them is necessary.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">The HTTP Cache-Control response header field (defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2" class="relref">Section 5.2</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>) is widely used to direct caching behavior. However, it is relatively undifferentiated; while some directives (e.g., s-maxage) are targeted at a specific class of caches (for s-maxage, shared caches), targeting is not consistently available across all existing cache directives (e.g., stale-while-revalidate). This is problematic, especially as the number of caching extensions grows, along with the number of potential targets.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-1">Modern deployments of HTTP often use multiple layers of caching. For example, a website might use a cache on the origin server itself; it might deploy a caching layer in the same network as the origin server, it might use one or more CDNs that are distributed throughout the Internet, and it might benefit from browser caching as well.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Because it is often desirable to control these different classes of caches separately, some means of targeting cache directives at them is necessary. For example, if a publisher has a mechanism to invalidate the contents of a cache that it has a relationship with (such as a CDN cache), they might be more comfortable assigning a more generous caching policy to it while still wanting to restrict the behavior of other caches.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">The HTTP Cache-Control response header field (defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2" class="relref">Section 5.2</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>) is widely used to direct caching behavior. However, it is relatively undifferentiated; while some cache directives (e.g., s-maxage) are targeted at a specific class of caches (for s-maxage, shared caches), targeting is not consistently available across all existing cache directives (e.g., stale-while-revalidate). This is problematic especially as the number of caching extensions grows along with the number of potential targets.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">Some implementations have defined ad hoc control mechanisms to overcome this issue, but their interoperability is low. <a href="#targeted" class="xref">Section 2</a> defines a standard framework for targeted cache control using HTTP response headers, and <a href="#cdn-cache-control" class="xref">Section 3</a> defines one such header: the CDN-Cache-Control response header field.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <div id="notational-conventions">
 <section id="section-1.1">
         <h3 id="name-notational-conventions">
 <a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-notational-conventions" class="section-name selfRef">Notational Conventions</a>
         </h3>
-<p id="section-1.1-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
-"RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as
-described in BCP 14 <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as
-shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<p id="section-1.1-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
+described in BCP 14 <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="xref">RFC8174</a>]</span> when, and only when, they
+appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1206,27 +1209,27 @@ shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
       <h2 id="name-targeted-cache-control-head">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-targeted-cache-control-head" class="section-name selfRef">Targeted Cache-Control Header Fields</a>
       </h2>
-<p id="section-2-1">A Targeted Cache-Control Header Field (hereafter, "targeted field") is a HTTP response header field that has the same semantics as the Cache-Control response header field (<span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2" class="relref">Section 5.2</a></span>). However, it has a distinct field name that indicates the target for its directives.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-1">A Targeted Cache-Control Header Field (hereafter "targeted field") is an HTTP response header field that has the same semantics as the Cache-Control response header field (<span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>], <a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2" class="relref">Section 5.2</a></span>). However, it has a distinct field name that indicates the target for its cache directives.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">For example:<a href="#section-2-2" class="pilcrow">¶</a></p>
 <div id="section-2-3">
 <pre class="lang-http-message sourcecode">
 CDN-Cache-Control: max-age=60
 </pre><a href="#section-2-3" class="pilcrow">¶</a>
 </div>
-<p id="section-2-4">is a targeted field that applies to Content Delivery Networks (CDNs), as defined in <a href="#cdn-cache-control" class="xref">Section 3</a>.<a href="#section-2-4" class="pilcrow">¶</a></p>
+<p id="section-2-4">is a targeted field that applies to CDNs, as defined in <a href="#cdn-cache-control" class="xref">Section 3</a>.<a href="#section-2-4" class="pilcrow">¶</a></p>
 <div id="syntax">
 <section id="section-2.1">
         <h3 id="name-syntax">
 <a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-syntax" class="section-name selfRef">Syntax</a>
         </h3>
-<p id="section-2.1-1">Targeted fields are Dictionary Structured Fields (<span><a href="https://rfc-editor.org/rfc/rfc8941#section-3.2" class="relref">Section 3.2</a> of [<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span>). Each member of the dictionary is a cache response directive from the Hypertext Transfer Protocol (HTTP) Cache Directive Registry. Note that while targeted fields often have the same syntax as Cache-Control fields, differences in error handling mean that using a Cache-Control parser rather than a Structured Fields parser can introduce interoperability issues.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.1-1">Targeted fields are Dictionary Structured Fields (<span><a href="https://rfc-editor.org/rfc/rfc8941#section-3.2" class="relref">Section 3.2</a> of [<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span>). Each member of the Dictionary is an HTTP cache response directive (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2" class="relref">Section 5.2.2</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>) including extension response directives (as per <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.3" class="relref">Section 5.2.3</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>). Note that while targeted fields often have the same syntax as Cache-Control fields, differences in error handling mean that using a Cache-Control parser rather than a Structured Fields parser can introduce interoperability issues.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
 <p id="section-2.1-2">Because cache directives are not defined in terms of structured data types, it is necessary to map their values into the appropriate types. <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2" class="relref">Section 5.2</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span> defines cache directive values to be either absent, a quoted-string, or a token.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
-<p id="section-2.1-3">This means that cache directives that have no value will be mapped to a Boolean (<span><a href="https://rfc-editor.org/rfc/rfc8941#section-3.3.6" class="relref">Section 3.3.6</a> of [<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span>). When the value is a quoted-string, it will be mapped to a String (<span><a href="https://rfc-editor.org/rfc/rfc8941#section-3.3.3" class="relref">Section 3.3.3</a> of [<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span>), and when it is a token, it will map to a Token (<span><a href="https://rfc-editor.org/rfc/rfc8941#section-3.3.4" class="relref">Section 3.3.4</a> of [<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span>), an Integer (<span><a href="https://rfc-editor.org/rfc/rfc8941#section-3.3.1" class="relref">Section 3.3.1</a> of [<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span>) or a Decimal (<span><a href="https://rfc-editor.org/rfc/rfc8941#section-3.3.2" class="relref">Section 3.3.2</a> of [<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span>), depending on the content of the value.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
-<p id="section-2.1-4">For example, the max-age directive (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2.1" class="relref">Section 5.2.2.1</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>) has an integer value; no-store (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2.5" class="relref">Section 5.2.2.5</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>) always has a boolean true value, and no-cache (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2.4" class="relref">Section 5.2.2.4</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>) has a value that can either be boolean true or a string containing a comma-delimited list of field names.<a href="#section-2.1-4" class="pilcrow">¶</a></p>
-<p id="section-2.1-5">Implementations MUST NOT generate values that violate these inferred constraints on the directive's value. In particular, string values whose first character is not alphabetic or "*" MUST be generated as structured Strings, so they are not mistaken for other types.<a href="#section-2.1-5" class="pilcrow">¶</a></p>
-<p id="section-2.1-6">Implementations SHOULD NOT consume values that violate these inferred constraints. For example, a consuming implementation were to coerce a max-age with a decimal value into an integer would behave differently than other implementations, potentially causing interoperability issues.<a href="#section-2.1-6" class="pilcrow">¶</a></p>
-<p id="section-2.1-7">Parameters received on directives are to be ignored, unless other handling is explicitly specified.<a href="#section-2.1-7" class="pilcrow">¶</a></p>
-<p id="section-2.1-8">If a targeted field in a given response is empty, or a parsing error is encountered, that field MUST be ignored by the cache (i.e., it behaves as if the field were not present, likely falling back to other cache control mechanisms present).<a href="#section-2.1-8" class="pilcrow">¶</a></p>
+<p id="section-2.1-3">This means that cache directives that have no value will be mapped to a Boolean (<span><a href="https://rfc-editor.org/rfc/rfc8941#section-3.3.6" class="relref">Section 3.3.6</a> of [<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span>). When the value is a quoted-string, it will be mapped to a String (<span><a href="https://rfc-editor.org/rfc/rfc8941#section-3.3.3" class="relref">Section 3.3.3</a> of [<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span>), and when it is a token, it will map to a Token (<span><a href="https://rfc-editor.org/rfc/rfc8941#section-3.3.4" class="relref">Section 3.3.4</a> of [<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span>), an Integer (<span><a href="https://rfc-editor.org/rfc/rfc8941#section-3.3.1" class="relref">Section 3.3.1</a> of [<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span>), or a Decimal (<span><a href="https://rfc-editor.org/rfc/rfc8941#section-3.3.2" class="relref">Section 3.3.2</a> of [<a href="#STRUCTURED-FIELDS" class="xref">STRUCTURED-FIELDS</a>]</span>), depending on the content of the value.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.1-4">For example, the max-age directive (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2.1" class="relref">Section 5.2.2.1</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>) has an integer value; no-store (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2.5" class="relref">Section 5.2.2.5</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>) always has a Boolean true value, and no-cache (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-5.2.2.4" class="relref">Section 5.2.2.4</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>) has a value that can be either Boolean true or a string containing a comma-delimited list of field names.<a href="#section-2.1-4" class="pilcrow">¶</a></p>
+<p id="section-2.1-5">Implementations <span class="bcp14">MUST NOT</span> generate values that violate these inferred constraints on the cache directive's value. In particular, string values whose first character is not alphabetic or "*" <span class="bcp14">MUST</span> be generated as Strings so that they are not mistaken for other types.<a href="#section-2.1-5" class="pilcrow">¶</a></p>
+<p id="section-2.1-6">Implementations <span class="bcp14">SHOULD NOT</span> consume values that violate these inferred constraints. For example, a consuming implementation that coerces a max-age with a decimal value into an integer would behave differently than other implementations, potentially causing interoperability issues.<a href="#section-2.1-6" class="pilcrow">¶</a></p>
+<p id="section-2.1-7">Parameters received on cache directives are to be ignored, unless other handling is explicitly specified.<a href="#section-2.1-7" class="pilcrow">¶</a></p>
+<p id="section-2.1-8">If a targeted field in a given response is empty, or a parsing error is encountered, that field <span class="bcp14">MUST</span> be ignored by the cache (i.e., it behaves as if the field were not present, likely falling back to other cache-control mechanisms present).<a href="#section-2.1-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="cache-behavior">
@@ -1234,17 +1237,17 @@ CDN-Cache-Control: max-age=60
         <h3 id="name-cache-behavior">
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-cache-behavior" class="section-name selfRef">Cache Behavior</a>
         </h3>
-<p id="section-2.2-1">A cache that implement this specification maintains a <em>target list</em> - an ordered list of the targeted field names that it uses for caching policy, with the order reflecting priority from most applicable to least. The target list might be fixed, user-configurable, or generated per request, depending upon the implementation.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-1">A cache that implements this specification maintains a target list. A target list is an ordered list of the targeted field names that it uses for caching policy, with the order reflecting priority from most applicable to least. The target list might be fixed, user configurable, or generated per request, depending upon the implementation.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 <p id="section-2.2-2">For example, a CDN cache might support both CDN-Cache-Control and a header specific to that CDN, ExampleCDN-Cache-Control, with the latter overriding the former. Its target list would be:<a href="#section-2.2-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-2.2-3">
 <pre>
   [ExampleCDN-Cache-Control, CDN-Cache-Control]
 </pre><a href="#section-2.2-3" class="pilcrow">¶</a>
 </div>
-<p id="section-2.2-4">When a cache that implements this specification receives a response with one or more of of the header field names on its target list, the cache MUST select the first (in target list order) field with a valid, non-empty value and use its value to determine the caching policy for the response, and MUST ignore the Cache-Control and Expires header fields in that response, unless no valid, non-empty value is available from the listed header fields.<a href="#section-2.2-4" class="pilcrow">¶</a></p>
-<p id="section-2.2-5">Note that this occurs on a response-by-response basis; if no member of the cache's target list is present, valid and non-empty, a cache falls back to other cache control mechanisms as required by HTTP <span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>.<a href="#section-2.2-5" class="pilcrow">¶</a></p>
-<p id="section-2.2-6">Targeted fields that are not on a cache's target list MUST NOT change that cache's behaviour, and MUST be passed through.<a href="#section-2.2-6" class="pilcrow">¶</a></p>
-<p id="section-2.2-7">Caches that use a targeted field MUST implement the semantics of the following cache directives:<a href="#section-2.2-7" class="pilcrow">¶</a></p>
+<p id="section-2.2-4">When a cache that implements this specification receives a response with one or more of the header field names on its target list, the cache <span class="bcp14">MUST</span> select the first (in target-list order) field with a valid, non-empty value and use its value to determine the caching policy for the response, and it <span class="bcp14">MUST</span> ignore the Cache-Control and Expires header fields in that response, unless no valid, non-empty value is available from the listed header fields.<a href="#section-2.2-4" class="pilcrow">¶</a></p>
+<p id="section-2.2-5">Note that this occurs on a response-by-response basis; if no member of the cache's target list is present, valid, and non-empty, a cache falls back to other cache control mechanisms as required by HTTP <span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>.<a href="#section-2.2-5" class="pilcrow">¶</a></p>
+<p id="section-2.2-6">Targeted fields that are not on a cache's target list <span class="bcp14">MUST NOT</span> change that cache's behavior and <span class="bcp14">MUST</span> be passed through.<a href="#section-2.2-6" class="pilcrow">¶</a></p>
+<p id="section-2.2-7">Caches that use a targeted field <span class="bcp14">MUST</span> implement the semantics of the following cache directives:<a href="#section-2.2-7" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.2-8.1">max-age<a href="#section-2.2-8.1" class="pilcrow">¶</a>
 </li>
@@ -1257,8 +1260,8 @@ CDN-Cache-Control: max-age=60
           <li class="normal" id="section-2.2-8.5">private<a href="#section-2.2-8.5" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-2.2-9">Furthermore, they SHOULD implement other cache directives (including extension cache directives) that they support in the Cache-Control response header field.<a href="#section-2.2-9" class="pilcrow">¶</a></p>
-<p id="section-2.2-10">The semantics and precedence of cache directives in a targeted field are the same as those in Cache-Control. In particular, no-store and no-cache make max-age inoperative, and unrecognised extension directives are ignored.<a href="#section-2.2-10" class="pilcrow">¶</a></p>
+<p id="section-2.2-9">Furthermore, they <span class="bcp14">SHOULD</span> implement other cache directives (including extension cache directives) that they support in the Cache-Control response header field.<a href="#section-2.2-9" class="pilcrow">¶</a></p>
+<p id="section-2.2-10">The semantics and precedence of cache directives in a targeted field are the same as those in Cache-Control. In particular, no-store and no-cache make max-age inoperative, and unrecognized extension directives are ignored.<a href="#section-2.2-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="interaction-with-http-freshness">
@@ -1266,7 +1269,7 @@ CDN-Cache-Control: max-age=60
         <h3 id="name-interaction-with-http-fresh">
 <a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-interaction-with-http-fresh" class="section-name selfRef">Interaction with HTTP Freshness</a>
         </h3>
-<p id="section-2.3-1">HTTP caching has a single, end-to-end freshness model defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-4.2" class="relref">Section 4.2</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>. When additional freshness mechanisms are only available to some caches along a request path (for example, using targeted fields), their interactions need to be carefully considered. In particular, a targeted cache might have longer freshness lifetimes available to it than other caches, causing it to serve responses that appear to be prematurely (or even immediately) stale to them, negatively impacting cache efficiency.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-1">HTTP caching has a single, end-to-end freshness model defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-cache-19#section-4.2" class="relref">Section 4.2</a> of [<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span>. When additional freshness mechanisms are only available to some caches along a request path (for example, using targeted fields), their interactions need to be carefully considered. In particular, a targeted cache might have longer freshness lifetimes available to it than other caches, causing it to serve responses that appear to be prematurely (or even immediately) stale to those other caches, negatively impacting cache efficiency.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 <p id="section-2.3-2">For example, a response stored by a CDN cache might be served with the following headers:<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 <div id="section-2.3-3">
 <pre class="lang-http-message sourcecode">
@@ -1275,7 +1278,7 @@ Cache-Control: max-age=600
 CDN-Cache-Control: max-age=3600
 </pre><a href="#section-2.3-3" class="pilcrow">¶</a>
 </div>
-<p id="section-2.3-4">From the CDN's perspective, this response is still fresh after being cached for 30 minutes, while from other caches' standpoint, this response is already stale. See <span>[<a href="#AGE-PENALTY" class="xref">AGE-PENALTY</a>]</span> for more discussion.<a href="#section-2.3-4" class="pilcrow">¶</a></p>
+<p id="section-2.3-4">From the CDN's perspective, this response is still fresh after being cached for 30 minutes, while from the standpoint of other caches, this response is already stale. See <span>[<a href="#AGE-PENALTY" class="xref">AGE-PENALTY</a>]</span> for more discussion.<a href="#section-2.3-4" class="pilcrow">¶</a></p>
 <p id="section-2.3-5">When the targeted cache has a strong coherence mechanism (e.g., the origin server has the ability to proactively invalidate cached responses), it is often desirable to mitigate these effects. Some techniques seen in deployments include:<a href="#section-2.3-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-2.3-6.1">Removing the Age header field<a href="#section-2.3-6.1" class="pilcrow">¶</a>
@@ -1293,8 +1296,9 @@ CDN-Cache-Control: max-age=3600
         <h3 id="name-defining-targeted-fields">
 <a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-defining-targeted-fields" class="section-name selfRef">Defining Targeted Fields</a>
         </h3>
-<p id="section-2.4-1">A targeted field for a particular class of cache can be defined by requesting registration in the Hypertext Transfer Protocol (HTTP) Field Name Registry (<span><a href="https://www.iana.org/assignments/http-fields/">https://www.iana.org/assignments/http-fields/</a></span>), listing this specification as the specification document. The Comments field of the registration should clearly define the class of caches that the targeted field applies to.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
-<p id="section-2.4-2">By convention, targeted fields have the suffix "-Cache-Control": e.g., "ExampleCDN-Cache-Control". However, this suffix MUST NOT be used on its own to identify targeted fields; it is only a convention.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
+<p id="section-2.4-1">A targeted field for a particular class of cache can be defined by requesting registration in the "Hypertext Transfer Protocol (HTTP) Field Name Registry" (<span>&lt;<a href="https://www.iana.org/assignments/http-fields/">https://www.iana.org/assignments/http-fields/</a>&gt;</span>).<a href="#section-2.4-1" class="pilcrow">¶</a></p>
+<p id="section-2.4-2">Registration requests can use this document as the specification document; in which case, the Comments field should clearly define the class of caches that the targeted field applies to. Alternatively, if other documentation for the field has been created, it can be used as the specification document.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
+<p id="section-2.4-3">By convention, targeted fields have the suffix "-Cache-Control", e.g., "ExampleCDN-Cache-Control". However, this suffix <span class="bcp14">MUST NOT</span> be used on its own to identify targeted fields; it is only a convention.<a href="#section-2.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1304,15 +1308,15 @@ CDN-Cache-Control: max-age=3600
       <h2 id="name-the-cdn-cache-control-targe">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-the-cdn-cache-control-targe" class="section-name selfRef">The CDN-Cache-Control Targeted Field</a>
       </h2>
-<p id="section-3-1">The CDN-Cache-Control response header field is a targeted field (<a href="#targeted" class="xref">Section 2</a>) that allows origin servers to control the behaviour of CDN caches interposed between them and clients, separately from other caches that might handle the response.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">It applies to caches that are part of a distributed network that operate on behalf of an origin server (commonly called a Content Delivery Network or CDN).<a href="#section-3-2" class="pilcrow">¶</a></p>
-<p id="section-3-3">CDN caches that use CDN-Cache-Control will typically forward this header so that downstream CDN caches can use it as well. However, they MAY remove it when this is undesirable (for example, when configured to do so because it is known not to be used downstream).<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-1">The CDN-Cache-Control response header field is a targeted field (<a href="#targeted" class="xref">Section 2</a>) that allows origin servers to control the behavior of CDN caches interposed between them and clients separately from other caches that might handle the response.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">It applies to caches that are part of a distributed network that operate on behalf of an origin server (commonly called a CDN).<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">CDN caches that use CDN-Cache-Control will typically forward this header so that downstream CDN caches can use it as well. However, they <span class="bcp14">MAY</span> remove it when this is undesirable (for example, when configured to do so because it is known not to be used downstream).<a href="#section-3-3" class="pilcrow">¶</a></p>
 <div id="examples">
 <section id="section-3.1">
         <h3 id="name-examples">
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-examples" class="section-name selfRef">Examples</a>
         </h3>
-<p id="section-3.1-1">For example, the following header fields would instruct a CDN cache to consider the response fresh for 600 seconds, other shared caches for 120 seconds and any remaining caches for 60 seconds:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">For example, the following header fields would instruct a CDN cache (i.e., a cache with a target list of <code>[CDN-Cache-Control]</code>) to consider the response fresh for 600 seconds, other shared caches to consider the response fresh for 120 seconds, and any remaining caches to consider the response fresh for 60 seconds:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <div id="section-3.1-2">
 <pre class="lang-http-message sourcecode">
 Cache-Control: max-age=60, s-maxage=120
@@ -1339,7 +1343,7 @@ Cache-Control: no-store
 CDN-Cache-Control: none
 </pre><a href="#section-3.1-8" class="pilcrow">¶</a>
 </div>
-<p id="section-3.1-9">(note that 'none' is not a registered cache directive; it is here to avoid sending a header field with an empty value, which would be ignored)<a href="#section-3.1-9" class="pilcrow">¶</a></p>
+<p id="section-3.1-9">(Note that 'none' is not a registered cache directive; it is here to avoid sending a header field with an empty value, which would be ignored.)<a href="#section-3.1-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1349,18 +1353,29 @@ CDN-Cache-Control: none
       <h2 id="name-iana-considerations">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-4-1">Please register the following entry in the Hypertext Transfer Protocol (HTTP) Field Name Registry
-defined by <span>[<a href="#HTTP" class="xref">HTTP</a>]</span>:<a href="#section-4-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-4-2.1">Field Name: CDN-Cache-Control<a href="#section-4-2.1" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-4-2.2">Status: permanent<a href="#section-4-2.2" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-4-2.3">Specification Document: [this document]<a href="#section-4-2.3" class="pilcrow">¶</a>
-</li>
-        <li class="normal" id="section-4-2.4">Comments: Cache-Control directives targeted at Content Delivery Networks<a href="#section-4-2.4" class="pilcrow">¶</a>
-</li>
-      </ul>
+<p id="section-4-1">IANA has registered the following entry in the "Hypertext Transfer Protocol (HTTP) Field Name Registry" defined by <span>[<a href="#HTTP" class="xref">HTTP</a>]</span>:<a href="#section-4-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-4-2">
+        <dt id="section-4-2.1">Field Name:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-2.2">
+          <p id="section-4-2.2.1">CDN-Cache-Control<a href="#section-4-2.2.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-2.3">Status:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-2.4">
+          <p id="section-4-2.4.1">permanent<a href="#section-4-2.4.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-2.5">Specification Document:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-2.6">
+          <p id="section-4-2.6.1">RFC 9213<a href="#section-4-2.6.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-2.7">Comments:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-2.8">
+          <p id="section-4-2.8.1">Cache directives targeted at content delivery networks<a href="#section-4-2.8.1" class="pilcrow">¶</a></p>
+</dd>
+      <dd class="break"></dd>
+</dl>
 </section>
 </div>
 <div id="security-considerations">
@@ -1369,7 +1384,7 @@ defined by <span>[<a href="#HTTP" class="xref">HTTP</a>]</span>:<a href="#sectio
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
 <p id="section-5-1">The security considerations of HTTP caching <span>[<a href="#HTTP-CACHING" class="xref">HTTP-CACHING</a>]</span> apply.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">The ability to carry multiple caching policies on a response can result in confusion about how a response will be cached in different systems, if not used carefully. This might result in unintentional reuse of responses with sensitive information.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<p id="section-5-2">The ability to carry multiple caching policies on a response can result in confusion about how a response will be cached in different systems, potentially resulting in unintentional reuse of responses with sensitive information. For this reason, care must be exercised.<a href="#section-5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <section id="section-6">

@@ -4,9 +4,9 @@
 
 HTTP                                                       M. Nottingham
 Internet-Draft                                                    Fastly
-Updates: 7234 (if approved)                              1 December 2021
+Updates: 7234 (if approved)                                23 March 2022
 Intended status: Standards Track                                        
-Expires: 4 June 2022
+Expires: 24 September 2022
 
 
                       HTTP Representation Variants
@@ -19,9 +19,12 @@ Abstract
    "Variants" and "Variant-Key" response header fields.  Its aim is to
    make HTTP proactive content negotiation more cache-friendly.
 
-Discussion Venues
+About This Document
 
    This note is to be removed before publishing as an RFC.
+
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-ietf-httpbis/.
 
    Discussion of this document takes place on the HTTP Working Group
    mailing list (mailto:ietf-http-wg@w3.org), which is archived at
@@ -46,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 June 2022.
+   This Internet-Draft will expire on 24 September 2022.
 
 Copyright Notice
 
-   Copyright (c) 2021 IETF Trust and the persons identified as the
+   Copyright (c) 2022 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -190,8 +193,8 @@ Table of Contents
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in BCP
-   14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
    This specification uses the Augmented Backus-Naur Form (ABNF)
@@ -1048,6 +1051,5 @@ Author's Address
    Fastly
    Prahran
    Australia
-
    Email: mnot@mnot.net
    URI:   https://www.mnot.net/

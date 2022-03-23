@@ -5,8 +5,8 @@
 HTTP Working Group                                        M. Bishop, Ed.
 Internet-Draft                                       Akamai Technologies
 Intended status: Standards Track                         M. Thomson, Ed.
-Expires: 4 June 2022                                             Mozilla
-                                                         1 December 2021
+Expires: 24 September 2022                                       Mozilla
+                                                           23 March 2022
 
 
                        HTTP Alternative Services
@@ -19,9 +19,12 @@ Abstract
    network location, possibly accessed with a different protocol
    configuration.
 
-Discussion Venues
+About This Document
 
    This note is to be removed before publishing as an RFC.
+
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-ietf-httpbis/.
 
    Discussion of this document takes place on the HTTP Working Group
    mailing list (mailto:ietf-http-wg@w3.org), which is archived at
@@ -46,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 June 2022.
+   This Internet-Draft will expire on 24 September 2022.
 
 Copyright Notice
 
-   Copyright (c) 2021 IETF Trust and the persons identified as the
+   Copyright (c) 2022 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -952,11 +955,9 @@ Authors' Addresses
 
    Mike Bishop (editor)
    Akamai Technologies
-
    Email: mbishop@evequefou.be
 
 
    Martin Thomson (editor)
    Mozilla
-
    Email: mt@lowentropy.net

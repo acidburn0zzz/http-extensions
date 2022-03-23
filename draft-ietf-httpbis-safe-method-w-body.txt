@@ -5,9 +5,9 @@
 HTTP                                                          J. Reschke
 Internet-Draft                                                greenbytes
 Intended status: Standards Track                             A. Malhotra
-Expires: 4 June 2022                                                    
+Expires: 24 September 2022                                              
                                                               J.M. Snell
-                                                         1 December 2021
+                                                           23 March 2022
 
 
                          The HTTP QUERY Method
@@ -47,11 +47,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 June 2022.
+   This Internet-Draft will expire on 24 September 2022.
 
 Copyright Notice
 
-   Copyright (c) 2021 IETF Trust and the persons identified as the
+   Copyright (c) 2022 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -108,7 +108,7 @@ Table of Contents
    As an alternative to using GET, many implementations make use of the
    HTTP POST method to perform queries, as illustrated in the example
    below.  In this case, the input parameters to the search operation
-   are passed along within the request payload as opposed to using the
+   are passed along within the request content as opposed to using the
    request URI.
 
    A typical use of HTTP POST for requesting a search
@@ -126,7 +126,7 @@ Table of Contents
 
    The QUERY method provides a solution that spans the gap between the
    use of GET and POST.  As with POST, the input to the query operation
-   is passed along within the payload of the request rather than as part
+   is passed along within the content of the request rather than as part
    of the request URI.  Unlike POST, however, the method is explicitly
    safe and idempotent, allowing functions like caching and automatic
    retries to operate.
@@ -143,14 +143,14 @@ Table of Contents
    HTTP GET method, which requests that a server return a representation
    of the resource identified by the target URI (as defined by
    Section 7.1 of [RFCHTTP]), the QUERY method is used to ask the server
-   to perform a query operation (described by the request payload) over
-   some set of data scoped to the effective request URI.  The payload
+   to perform a query operation (described by the request content) over
+   some set of data scoped to the effective request URI.  The content
    returned in response to a QUERY cannot be assumed to be a
    representation of the resource identified by the effective request
    URI.
 
-   The body payload of the request defines the query.  Implementations
-   MAY use a request body of any content type with the QUERY method,
+   The content of the request defines the query.  Implementations MAY
+   use a request content of any media type with the QUERY method,
    provided that it has appropriate query semantics.
 
    QUERY requests are both safe and idempotent with regards to the
@@ -215,8 +215,8 @@ Table of Contents
    media types (with optional parameters) as defined by Section 8.3.1 of
    [RFCHTTP].
 
-   The order of types listed by the Accept-Query header field is
-   insignificant.
+   The order of types listed by the Accept-Query header field is not
+   significant.
 
 4.  Examples
 
@@ -343,7 +343,7 @@ A.1.  Since draft-ietf-httpbis-safe-method-w-body-00
    *  Update HTTP reference (https://github.com/httpwg/http-extensions/
       issues/1524)
 
-   *  Relax restriction of generic XML media type in request body
+   *  Relax restriction of generic XML media type in request content
       (https://github.com/httpwg/http-extensions/issues/1535)
 
 A.2.  Since draft-ietf-httpbis-safe-method-w-body-01
@@ -359,7 +359,11 @@ A.2.  Since draft-ietf-httpbis-safe-method-w-body-01
 
 A.3.  Since draft-ietf-httpbis-safe-method-w-body-02
 
-   None yet.
+   *  In Section 3, slightly rephrase statement about significance of
+      ordering (https://github.com/httpwg/http-extensions/issues/1896)
+
+   *  Throughout: use "content" instead of "payload" or "body"
+      (https://github.com/httpwg/http-extensions/issues/1915)
 
 Authors' Addresses
 
@@ -368,16 +372,13 @@ Authors' Addresses
    Hafenweg 16
    48155 Münster
    Germany
-
    Email: julian.reschke@greenbytes.de
    URI:   https://greenbytes.de/tech/webdav/
 
 
    Ashok Malhotra
-
    Email: malhotrasahib@gmail.com
 
 
    James M Snell
-
    Email: jasnell@gmail.com

@@ -10,10 +10,10 @@
 <meta content="
        This document defines a binary format for representing HTTP messages. 
     " name="description">
-<meta content="xml2rfc 3.11.1" name="generator">
+<meta content="xml2rfc 3.12.3" name="generator">
 <meta content="draft-ietf-httpbis-binary-message" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.11.1
+  xml2rfc 3.12.3
     Python 3.9.7
     appdirs 1.4.4
     ConfigArgParse 1.3
@@ -22,7 +22,8 @@
     intervaltree 3.1.0
     Jinja2 2.11.3
     kitchen 1.2.6
-    lxml 4.6.4
+    lxml 4.6.5
+    MarkupSafe 2.0.1
     pycountry 20.7.3
     pyflakes 2.3.1
     PyYAML 5.4.1
@@ -1012,11 +1013,11 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Binary HTTP Messages</td>
-<td class="right">December 2021</td>
+<td class="right">March 2022</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Thomson &amp; Wood</td>
-<td class="center">Expires 4 June 2022</td>
+<td class="center">Expires 24 September 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1029,12 +1030,12 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <dd class="internet-draft">draft-ietf-httpbis-binary-message</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-12-01" class="published">1 December 2021</time>
+<time datetime="2022-03-23" class="published">23 March 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-06-04">4 June 2022</time></dd>
+<dd class="expires"><time datetime="2022-09-24">24 September 2022</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1042,7 +1043,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <div class="org">Mozilla</div>
 </div>
 <div class="author">
-      <div class="author-name">C.A. Wood</div>
+      <div class="author-name">C. A. Wood</div>
 <div class="org">Cloudflare</div>
 </div>
 </dd>
@@ -1054,17 +1055,19 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <p id="section-abstract-1">This document defines a binary format for representing HTTP messages.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
-      <h2 id="name-discussion-venues">
-<a href="#name-discussion-venues" class="section-name selfRef">Discussion Venues</a>
+      <h2 id="name-about-this-document">
+<a href="#name-about-this-document" class="section-name selfRef">About This Document</a>
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-ietf-httpbis-binary/">https://datatracker.ietf.org/doc/draft-ietf-httpbis-binary/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">
         Discussion of this document takes place on the
         HTTP Working Group mailing list (<span><a href="mailto:ietf-http-wg@w3.org">mailto:ietf-http-wg@w3.org</a></span>),
         which is archived at <span><a href="https://lists.w3.org/Archives/Public/ietf-http-wg/">https://lists.w3.org/Archives/Public/ietf-http-wg/</a></span>.
-        Working Group information can be found at <span><a href="https://httpwg.org/">https://httpwg.org/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
-<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/httpwg/http-extensions/labels/binary-messages">https://github.com/httpwg/http-extensions/labels/binary-messages</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+        Working Group information can be found at <span><a href="https://httpwg.org/">https://httpwg.org/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/httpwg/http-extensions/labels/binary-messages">https://github.com/httpwg/http-extensions/labels/binary-messages</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1085,7 +1088,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 June 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 September 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1094,7 +1097,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2021 IETF Trust and the persons identified as the
+            Copyright (c) 2022 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1149,6 +1152,9 @@ svg [stroke="fill"], svg [fill^="#fff"] {
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.7">
                 <p id="section-toc.1-1.3.2.7.1"><a href="#section-3.7" class="xref">3.7</a>.  <a href="#name-content" class="xref">Content</a></p>
 </li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.8">
+                <p id="section-toc.1-1.3.2.8.1"><a href="#section-3.8" class="xref">3.8</a>.  <a href="#name-padding-and-truncation" class="xref">Padding and Truncation</a></p>
+</li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
@@ -1166,30 +1172,33 @@ svg [stroke="fill"], svg [fill^="#fff"] {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-message-bhttp-media-type" class="xref">"message/bhttp" Media Type</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="xref">6</a>.  <a href="#name-notable-differences-with-ht" class="xref">Notable Differences with HTTP Protocol Messages</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="xref">7</a>.  <a href="#name-message-bhttp-media-type" class="xref">"message/bhttp" Media Type</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="xref">8</a>.  <a href="#name-security-considerations" class="xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-references" class="xref">References</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="xref">9.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="xref">9</a>.  <a href="#name-iana-considerations" class="xref">IANA Considerations</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="xref">9.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="xref">10</a>. <a href="#name-references" class="xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="xref">10.1</a>.  <a href="#name-normative-references" class="xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="xref">10.2</a>.  <a href="#name-informative-references" class="xref">Informative References</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="xref"></a><a href="#name-acknowledgments" class="xref">Acknowledgments</a></p>
-</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="xref"></a><a href="#name-authors-addresses" class="xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="xref"></a><a href="#name-acknowledgments" class="xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="xref"></a><a href="#name-authors-addresses" class="xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1205,14 +1214,13 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 messages that can be conveyed outside of an HTTP protocol. This enables the
 transformation of entire messages, including the application of authenticated
 encryption.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">This format is informed by the framing structure of HTTP/2 (<span>[<a href="#H2" class="xref">H2</a>]</span>)
-and HTTP/3 (<span>[<a href="#H3" class="xref">H3</a>]</span>). In comparison, this format simpler by
-virtue of not including either header compression (<span>[<a href="#HPACK" class="xref">HPACK</a>]</span>,
-<span>[<a href="#QPACK" class="xref">QPACK</a>]</span>) or a generic framing layer.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">This format provides an alternative to the <code>message/http</code> content type defined
-in <span>[<a href="#MESSAGING" class="xref">MESSAGING</a>]</span>. A binary format permits more efficient encoding and processing
-of messages. A binary format also reduces exposure to security problems related
-to processing of HTTP messages.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-2">The design of this format is informed by the framing structure of HTTP/2
+(<span>[<a href="#H2" class="xref">H2</a>]</span>) and HTTP/3 (<span>[<a href="#H3" class="xref">H3</a>]</span>).  Rules for constructing messages rely on the rules
+defined in HTTP/2, but the format itself is distinct; see <a href="#differences" class="xref">Section 6</a>.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">This format defines <code>message/bhttp</code>, a binary alternative to the <code>message/http</code>
+content type defined in <span>[<a href="#MESSAGING" class="xref">MESSAGING</a>]</span>. A binary format permits more efficient
+encoding and processing of messages. A binary format also reduces exposure to
+security problems related to processing of HTTP messages.<a href="#section-1-3" class="pilcrow">¶</a></p>
 <p id="section-1-4">Two modes for encoding are described:<a href="#section-1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-1-5.1">a known-length encoding includes length prefixes for all major message
@@ -1222,6 +1230,11 @@ components; and<a href="#section-1-5.1" class="pilcrow">¶</a>
 lengths are not known when encoding starts.<a href="#section-1-5.2" class="pilcrow">¶</a>
 </li>
       </ul>
+<p id="section-1-6">This format is designed to convey the semantics of valid HTTP messages as simply
+and efficiently as possible.  It is not designed to capture all of the details
+of the encoding of messages from specific HTTP versions (<span>[<a href="#MESSAGING" class="xref">MESSAGING</a>]</span>, <span>[<a href="#H2" class="xref">H2</a>]</span>,
+<span>[<a href="#H3" class="xref">H3</a>]</span>).  As such, this format is unlikely to be suitable for applications that
+depend on an exact recording of the encoding of messages.<a href="#section-1-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1229,9 +1242,8 @@ lengths are not known when encoding starts.<a href="#section-1-5.2" class="pilcr
       <h2 id="name-conventions-and-definitions">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
       </h2>
-<p id="section-2-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
-NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
-"MAY", and "OPTIONAL" in this document are to be interpreted as
+<p id="section-2-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">This document uses terminology from HTTP (<span>[<a href="#HTTP" class="xref">HTTP</a>]</span>) and notation from QUIC
@@ -1262,9 +1274,12 @@ For a response, this contains the status code.<a href="#section-3-2.3" class="pi
 </li>
         <li id="section-3-2.6">Trailer section.  This contains zero or more trailer fields.<a href="#section-3-2.6" class="pilcrow">¶</a>
 </li>
+        <li id="section-3-2.7">Optional padding. Any amount of zero-valued bytes.<a href="#section-3-2.7" class="pilcrow">¶</a>
+</li>
       </ol>
 <p id="section-3-3">All lengths and numeric values are encoded using the variable-length integer
-encoding from <span><a href="https://rfc-editor.org/rfc/rfc9000#section-16" class="relref">Section 16</a> of [<a href="#QUIC" class="xref">QUIC</a>]</span>.<a href="#section-3-3" class="pilcrow">¶</a></p>
+encoding from <span><a href="https://rfc-editor.org/rfc/rfc9000#section-16" class="relref">Section 16</a> of [<a href="#QUIC" class="xref">QUIC</a>]</span>.  Integer values do not need to be encoded
+on the minimum number of bytes necessary.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <div id="known-length-messages">
 <section id="section-3.1">
         <h3 id="name-known-length-messages">
@@ -1283,10 +1298,11 @@ Message with Known-Length {
   Known-Length Field Section (..),
   Known-Length Content (..),
   Known-Length Field Section (..),
+  Padding (..),
 }
 
 Known-Length Field Section {
-  Length (i) = 2..,
+  Length (i),
   Field Line (..) ...,
 }
 
@@ -1309,17 +1325,19 @@ Known-Length Informational Response {
 control data that is formatted according to the value of the framing indicator,
 a header section with a length prefix, binary content with a length prefix, and
 a trailer section with a length prefix.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.1-4">Response messages that contain informational status codes result in a different
-structure; see <a href="#informational" class="xref">Section 3.5.1</a>.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.1-5">Fields in the header and trailer sections consist of a length-prefixed name and
-length-prefixed value. Both name and value are sequences of bytes that cannot
-be zero length.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
-<p id="section-3.1-6">The format allows for the message to be truncated before any of the length
-prefixes that precede the field sections or content. This reduces the overall
-message size. A message that is truncated at any other point is invalid; see
-<a href="#invalid" class="xref">Section 4</a>.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
-<p id="section-3.1-7">The variable-length integer encoding means that there is a limit of 2^62-1
-bytes for each field section and the message content.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
+<p id="section-3.1-4">For a known-length encoding, the length prefix on field sections and content is
+a variable-length encoding of an integer.  This integer is the number of bytes
+in the field section or content.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-5">Response messages that contain informational status codes result in a different
+structure; see <a href="#informational" class="xref">Section 3.5.1</a>.  Note that while the Known-Length
+Informational Response field is shown in <a href="#format-known-length" class="xref">Figure 1</a>, it can only
+appear in response messages.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.1-6">Fields in the header and trailer sections consist of a length-prefixed name and
+length-prefixed value; see <a href="#fields" class="xref">Section 3.6</a>.<a href="#section-3.1-6" class="pilcrow">¶</a></p>
+<p id="section-3.1-7">The format allows for the message to be truncated before any of the length
+prefixes that precede the field sections or content; see <a href="#padding" class="xref">Section 3.8</a>.<a href="#section-3.1-7" class="pilcrow">¶</a></p>
+<p id="section-3.1-8">The variable-length integer encoding means that there is a limit of 2^62-1
+bytes for each field section and the message content.<a href="#section-3.1-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="indeterminate-length-messages">
@@ -1340,6 +1358,7 @@ Indeterminate-Length Message  {
   Indeterminate-Length Field Section (..),
   Indeterminate-Length Content (..) ...,
   Indeterminate-Length Field Section (..),
+  Padding (..),
 }
 
 Indeterminate-Length Content {
@@ -1372,14 +1391,22 @@ control data that is formatted according to the value of the framing indicator,
 a header section that is terminated by a zero value, any number of
 non-zero-length chunks of binary content, a zero value, and a trailer section
 that is terminated by a zero value.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.2-4">Response messages that contain informational status codes result in a different
-structure; see <a href="#informational" class="xref">Section 3.5.1</a>.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
-<p id="section-3.2-5">Indeterminate-length messages can be truncated in a similar way as known-length
-messages. Truncation occurs after the control data, or after the Content
-Terminator field that ends a field section or sequence of content chunks. A
-message that is truncated at any other point is invalid; see <a href="#invalid" class="xref">Section 4</a>.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
-<p id="section-3.2-6">Indeterminate-length messages use the same encoding for field lines as
-known-length messages; see <a href="#fields" class="xref">Section 3.6</a>.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
+<p id="section-3.2-4">The indeterminate-length encoding only uses length prefixes for content blocks.
+Multiple length-prefixed portions of content can be included, each prefixed by a
+non-zero Chunk Length integer describing the number of bytes in the block.  The
+Chunk Length is encoded as a variable-length integer.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-3.2-5">Each Field Line in an Indeterminate-Length Field Section starts with a Name
+Length field.  An Indeterminate-Length Field Section ends with a Content
+Terminator field.  The zero value of the Content Terminator distinguishes it
+from the Name Length field, which cannot contain a value of 0.<a href="#section-3.2-5" class="pilcrow">¶</a></p>
+<p id="section-3.2-6">Response messages that contain informational status codes result in a different
+structure; see <a href="#informational" class="xref">Section 3.5.1</a>.  Note that while the Indeterminate-Length
+Informational Response field is shown in <a href="#format-indeterminate-length" class="xref">Figure 2</a>, it can only
+appear in response messages.<a href="#section-3.2-6" class="pilcrow">¶</a></p>
+<p id="section-3.2-7">Indeterminate-length messages can be truncated in a similar way as known-length
+messages; see <a href="#padding" class="xref">Section 3.8</a>.<a href="#section-3.2-7" class="pilcrow">¶</a></p>
+<p id="section-3.2-8">Indeterminate-length messages use the same encoding for field lines as
+known-length messages; see <a href="#fields" class="xref">Section 3.6</a>.<a href="#section-3.2-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="framing">
@@ -1387,7 +1414,7 @@ known-length messages; see <a href="#fields" class="xref">Section 3.6</a>.<a hre
         <h3 id="name-framing-indicator">
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-framing-indicator" class="section-name selfRef">Framing Indicator</a>
         </h3>
-<p id="section-3.3-1">The start of each is a framing indicator that is a single integer that
+<p id="section-3.3-1">The start of each binary message is a framing indicator that is a single integer that
 describes the structure of the subsequent sections. The framing indicator can
 take just four values:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
@@ -1408,14 +1435,13 @@ take just four values:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
         <h3 id="name-request-control-data">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-request-control-data" class="section-name selfRef">Request Control Data</a>
         </h3>
-<p id="section-3.4-1">The control data for a request message includes four values that correspond to
-the values of the <code>:method</code>, <code>:scheme</code>, <code>:authority</code>, and <code>:path</code> pseudo-header
-fields described in HTTP/2 (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-06#section-8.3.1" class="relref">Section 8.3.1</a> of [<a href="#H2" class="xref">H2</a>]</span>). These fields are
-encoded, each with a length prefix, in the order listed.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.4-2">The rules in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-06#section-8.3" class="relref">Section 8.3</a> of [<a href="#H2" class="xref">H2</a>]</span> for constructing pseudo-header fields
-apply to the construction of these values. However, where the <code>:authority</code>
-pseudo-header field might be omitted in HTTP/2, a zero-length value is encoded
-instead.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
+<p id="section-3.4-1">The control data for a request message contains the method and request target.
+That information is encoded as an ordered sequence of fields: Method, Scheme,
+Authority, Path. Each of these fields is prefixed with a length.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<p id="section-3.4-2">The values of these fields follow the rules in HTTP/2 (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-07#section-8.3.1" class="relref">Section 8.3.1</a> of [<a href="#H2" class="xref">H2</a>]</span>)
+that apply to the <code>:method</code>, <code>:scheme</code>, <code>:authority</code>, and <code>:path</code> pseudo-header
+fields respectively. However, where the <code>:authority</code> pseudo-header field might
+be omitted in HTTP/2, a zero-length value is encoded instead.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 <p id="section-3.4-3">The format of request control data is shown in <a href="#format-request-control-data" class="xref">Figure 3</a>.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
 <span id="name-format-of-request-control-d"></span><div id="format-request-control-data">
 <figure id="figure-3">
@@ -1444,8 +1470,8 @@ Request Control Data {
         <h3 id="name-response-control-data">
 <a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-response-control-data" class="section-name selfRef">Response Control Data</a>
         </h3>
-<p id="section-3.5-1">The control data for a request message includes a single field that corresponds
-to the <code>:status</code> pseudo-header field in HTTP/2; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-06#section-8.3.2" class="relref">Section 8.3.2</a> of [<a href="#H2" class="xref">H2</a>]</span>. This field is encoded as a single variable length integer, not a decimal
+<p id="section-3.5-1">The control data for a response message consists of the status code. The status
+code is encoded as a variable length integer, not a length-prefixed decimal
 string.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
 <p id="section-3.5-2">The format of final response control data is shown in
 <a href="#format-response-control-data" class="xref">Figure 4</a>.<a href="#section-3.5-2" class="pilcrow">¶</a></p>
@@ -1485,12 +1511,14 @@ Informational Response Control Data {
 <a href="#name-format-of-informational-res" class="selfRef">Format of Informational Response Control Data</a>
             </figcaption></figure>
 </div>
-<p id="section-3.5.1-4">A response message can include any number of informational responses. If the
-response control data includes an informational status code (that is, a value
-between 100 and 199 inclusive), the control data is followed by a header
+<p id="section-3.5.1-4">A response message can include any number of informational responses that
+precede a final status code.  These convey an information status code and a
+header block.<a href="#section-3.5.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.5.1-5">If the response control data includes an informational status code (that is, a
+value between 100 and 199 inclusive), the control data is followed by a header
 section (encoded with known- or indeterminate- length according to the framing
-indicator). After the header section, another response control data block
-follows.<a href="#section-3.5.1-4" class="pilcrow">¶</a></p>
+indicator) and another block of control data.  This pattern repeats until the
+control data contains a final status code (200 to 599 inclusive).<a href="#section-3.5.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1503,8 +1531,8 @@ follows.<a href="#section-3.5.1-4" class="pilcrow">¶</a></p>
 <p id="section-3.6-1">Header and trailer sections consist of zero or more field lines; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-5" class="relref">Section 5</a> of [<a href="#HTTP" class="xref">HTTP</a>]</span>. The format of a field section depends on whether the message is
 known- or intermediate-length.<a href="#section-3.6-1" class="pilcrow">¶</a></p>
 <p id="section-3.6-2">Each field line includes a name and a value. Both the name and value are
-sequences of bytes, with the name including at least one byte. The format of a
-field line is shown in <a href="#format-field-line" class="xref">Figure 6</a>.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
+length-prefixed sequences of bytes.  The field name length is at least one
+byte. The format of a field line is shown in <a href="#format-field-line" class="xref">Figure 6</a>.<a href="#section-3.6-2" class="pilcrow">¶</a></p>
 <span id="name-format-of-a-field-line"></span><div id="format-field-line">
 <figure id="figure-6">
           <div id="section-3.6-3.1">
@@ -1522,25 +1550,22 @@ Field Line {
           </figcaption></figure>
 </div>
 <p id="section-3.6-4">For field names, byte values that are not permitted in an HTTP field name cause
-the message to be invalid; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-5.1" class="relref">Section 5.1</a> of [<a href="#HTTP" class="xref">HTTP</a>]</span> for a definition of
-what is valid and <a href="#invalid" class="xref">Section 4</a> for handling of invalid messages.<a href="#section-3.6-4" class="pilcrow">¶</a></p>
-<p id="section-3.6-5">Field names and values MUST be constructed and validated according to the rules
-of <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-06#section-8.2.1" class="relref">Section 8.2.1</a> of [<a href="#H2" class="xref">H2</a>]</span>.  A recipient MUST treat a message that contains
-field values that would cause an HTTP/2 message to be malformed (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-06#section-8.1.1" class="relref">Section 8.1.1</a> of [<a href="#H2" class="xref">H2</a>]</span>) as invalid; see <a href="#invalid" class="xref">Section 4</a>.<a href="#section-3.6-5" class="pilcrow">¶</a></p>
-<p id="section-3.6-6">The same field name can be repeated in multiple field lines; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-5.2" class="relref">Section 5.2</a> of [<a href="#HTTP" class="xref">HTTP</a>]</span> for the semantics of repeated field names and rules for combining
-values.<a href="#section-3.6-6" class="pilcrow">¶</a></p>
+the message to be invalid; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-5.1" class="relref">Section 5.1</a> of [<a href="#HTTP" class="xref">HTTP</a>]</span> for a definition of what
+is valid and <a href="#invalid" class="xref">Section 4</a> for handling of invalid messages.  A recipient <span class="bcp14">MUST</span>
+treat a message that contains field values that would cause an HTTP/2 message to
+be malformed according to <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-07#section-8.2.1" class="relref">Section 8.2.1</a> of [<a href="#H2" class="xref">H2</a>]</span> as invalid; see <a href="#invalid" class="xref">Section 4</a>.<a href="#section-3.6-4" class="pilcrow">¶</a></p>
+<p id="section-3.6-5">The same field name can be repeated in multiple field lines; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-5.2" class="relref">Section 5.2</a> of [<a href="#HTTP" class="xref">HTTP</a>]</span> for the semantics of repeated field names and rules for combining
+values.<a href="#section-3.6-5" class="pilcrow">¶</a></p>
+<p id="section-3.6-6">Fields that relate to connections (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-7.6.1" class="relref">Section 7.6.1</a> of [<a href="#HTTP" class="xref">HTTP</a>]</span>) cannot be used to
+produce the effect on a connection in this context.  These fields <span class="bcp14">SHOULD</span> be
+removed when constructing a binary message.  However, they do not cause a
+message to be invalid (<a href="#invalid" class="xref">Section 4</a>); permitting these fields allows a binary
+message to capture the content of a messages that are exchanged in a protocol
+context.<a href="#section-3.6-6" class="pilcrow">¶</a></p>
 <p id="section-3.6-7">Like HTTP/2, this format has an exception for the combination of multiple
 instances of the <code>Cookie</code> field. Instances of fields with the ASCII-encoded
 value of <code>cookie</code> are combined using a semicolon octet (0x3b) rather than a
-comma; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-06#section-8.2.3" class="relref">Section 8.2.3</a> of [<a href="#H2" class="xref">H2</a>]</span>.<a href="#section-3.6-7" class="pilcrow">¶</a></p>
-<p id="section-3.6-8">This format provides fixed locations for content that would be carried in HTTP/2
-pseudo-fields. Therefore, there is no need to include field lines containing a
-name of <code>:method</code>, <code>:scheme</code>, <code>:authority</code>, <code>:path</code>, or <code>:status</code>.  Fields that
-contain one of these names cause the message to be invalid; see
-<a href="#invalid" class="xref">Section 4</a>. Pseudo-fields that are defined by protocol extensions MAY be
-included.  Field lines containing pseudo-fields MUST precede other field lines;
-a message that contains a pseudo-field after any other field is invalid; see
-<a href="#invalid" class="xref">Section 4</a>.<a href="#section-3.6-8" class="pilcrow">¶</a></p>
+comma; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-07#section-8.2.3" class="relref">Section 8.2.3</a> of [<a href="#H2" class="xref">H2</a>]</span>.<a href="#section-3.6-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="content">
@@ -1552,8 +1577,27 @@ a message that contains a pseudo-field after any other field is invalid; see
 known-length message has a limit, this limit is large enough that it is
 unlikely to be a practical limitation. There is no limit to the size of content
 in an indeterminate length message.<a href="#section-3.7-1" class="pilcrow">¶</a></p>
-<p id="section-3.7-2">Omitting content by truncating a message is only possible if the content is
-zero-length.<a href="#section-3.7-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="padding">
+<section id="section-3.8">
+        <h3 id="name-padding-and-truncation">
+<a href="#section-3.8" class="section-number selfRef">3.8. </a><a href="#name-padding-and-truncation" class="section-name selfRef">Padding and Truncation</a>
+        </h3>
+<p id="section-3.8-1">Messages can be padded with any number of zero-valued bytes.  Non-zero padding
+bytes cause a message to be invalid (see <a href="#invalid" class="xref">Section 4</a>). Unlike other parts of a
+message, a processor <span class="bcp14">MAY</span> decide not to validate the value of padding bytes.<a href="#section-3.8-1" class="pilcrow">¶</a></p>
+<p id="section-3.8-2">Truncation can be used to reduce the size of messages that have no data in
+trailing field sections or content.  If the trailers of a message is empty, it
+<span class="bcp14">MAY</span> be omitted by the encoder in place of adding a length field equal to
+zero. An encoder <span class="bcp14">MAY</span> omit empty content in the same way if the trailers are also
+empty.  A message that is truncated at any other point is invalid; see
+<a href="#invalid" class="xref">Section 4</a>.<a href="#section-3.8-2" class="pilcrow">¶</a></p>
+<p id="section-3.8-3">Decoders <span class="bcp14">MUST</span> treat missing truncated fields as equivalent to having been sent
+with the length field sent to zero.<a href="#section-3.8-3" class="pilcrow">¶</a></p>
+<p id="section-3.8-4">Padding is compatible with truncation of empty parts of the messages.
+Zero-valued bytes will be interpreted as zero-length part, which is semantically
+equivalent to the part being absent.<a href="#section-3.8-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1564,7 +1608,7 @@ zero-length.<a href="#section-3.7-2" class="pilcrow">¶</a></p>
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-invalid-messages" class="section-name selfRef">Invalid Messages</a>
       </h2>
 <p id="section-4-1">This document describes a number of ways that a message can be invalid. Invalid
-messages MUST NOT be processed except to log an error and produce an error
+messages <span class="bcp14">MUST NOT</span> be processed except to log an error and produce an error
 response.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">The format is designed to allow incremental processing. Implementations need to
 be aware of the possibility that an error might be detected after performing
@@ -1583,8 +1627,8 @@ known-length and indefinite-length forms.<a href="#section-5-1" class="pilcrow">
         <h3 id="name-request-example">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-request-example" class="section-name selfRef">Request Example</a>
         </h3>
-<p id="section-5.1-1">The example HTTP/1.1 message in <a href="#ex-request" class="xref">Figure 7</a> shows the content of a
-<code>message/http</code>.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">The example HTTP/1.1 message in <a href="#ex-request" class="xref">Figure 7</a> shows the content in the
+<code>message/http</code> format.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">Valid HTTP/1.1 messages require lines terminated with CRLF (the two bytes 0x0a
 and 0x0d). For simplicity and consistency, the content of these examples is
 limited to text, which also uses CRLF for line endings.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
@@ -1628,7 +1672,7 @@ of the content is not modified.<a href="#section-5.1-4" class="pilcrow">¶</a></
 </div>
 <p id="section-5.1-6">This example shows that the Host header field is not replicated in the
 :authority field, as is required for ensuring that the request is reproduced
-accurately; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-06#section-8.3.1" class="relref">Section 8.3.1</a> of [<a href="#H2" class="xref">H2</a>]</span>.<a href="#section-5.1-6" class="pilcrow">¶</a></p>
+accurately; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-07#section-8.3.1" class="relref">Section 8.3.1</a> of [<a href="#H2" class="xref">H2</a>]</span>.<a href="#section-5.1-6" class="pilcrow">¶</a></p>
 <p id="section-5.1-7">The same message can be truncated with no effect on interpretation. In this
 case, the last two bytes - corresponding to content and a trailer section - can
 each be removed without altering the semantics of the message.<a href="#section-5.1-7" class="pilcrow">¶</a></p>
@@ -1647,14 +1691,16 @@ formats is negligible.<a href="#section-5.1-8" class="pilcrow">¶</a></p>
 622f312e 322e3304 686f7374 0f777777  b/1.2.3.host.www
 2e657861 6d706c65 2e636f6d 0f616363  .example.com.acc
 6570742d 6c616e67 75616765 06656e2c  ept-language.en,
-206d6900 0000                         mi...
+206d6900 00000000 00000000 00000000   mi.............
 </pre>
 </div>
 <figcaption><a href="#figure-9" class="selfRef">Figure 9</a>:
 <a href="#name-indefinite-length-binary-en" class="selfRef">Indefinite-Length Binary Encoding of Request</a>
           </figcaption></figure>
 </div>
-<p id="section-5.1-10">This indefinite-length encoding can be truncated by two bytes in the same way.<a href="#section-5.1-10" class="pilcrow">¶</a></p>
+<p id="section-5.1-10">This indefinite-length encoding contains 10 bytes of padding.  As two additional
+bytes can be truncated in the same way as the known-length example, anything up
+to 12 bytes can be removed from this message without affecting its meaning.<a href="#section-5.1-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="response-example">
@@ -1734,7 +1780,7 @@ phrase is not retained by this encoding.<a href="#section-5.2-3" class="pilcrow"
 shown for <a href="#ex-chunked" class="xref">Figure 12</a> can be encoded using indefinite-length encoding, which
 minimizes buffering needed to translate into the binary format. However, chunk
 boundaries do not need to be retained and any chunk extensions cannot be
-conveyed using the binary format.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+conveyed using the binary format; see <a href="#differences" class="xref">Section 6</a>.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
 <span id="name-chunked-encoding-example"></span><div id="ex-chunked">
 <figure id="figure-12">
           <div id="section-5.2-6.1">
@@ -1777,173 +1823,205 @@ the transfer-encoding header field is removed.<a href="#section-5.2-7" class="pi
 </div>
 </section>
 </div>
-<div id="media-type">
+<div id="differences">
 <section id="section-6">
-      <h2 id="name-message-bhttp-media-type">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-message-bhttp-media-type" class="section-name selfRef">"message/bhttp" Media Type</a>
+      <h2 id="name-notable-differences-with-ht">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-notable-differences-with-ht" class="section-name selfRef">Notable Differences with HTTP Protocol Messages</a>
       </h2>
-<p id="section-6-1">The message/http media type can be used to enclose a single HTTP request or
+<p id="section-6-1">This format is designed to carry HTTP semantics just like HTTP/1.1, HTTP/2, or
+HTTP/3 (<span>[<a href="#MESSAGING" class="xref">MESSAGING</a>]</span>, <span>[<a href="#H2" class="xref">H2</a>]</span>, <span>[<a href="#H3" class="xref">H3</a>]</span>).  However, there are some notable
+differences between this format and the format used in an interactive protocol
+version.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">In particular, as a standalone representation, this format lacks the following
+features of the formats used in those protocols:<a href="#section-6-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6-3.1">chunk extensions (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-messaging-19#section-7.1.1" class="relref">Section 7.1.1</a> of [<a href="#MESSAGING" class="xref">MESSAGING</a>]</span>) and transfer encoding
+(<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-messaging-19#section-6.1" class="relref">Section 6.1</a> of [<a href="#MESSAGING" class="xref">MESSAGING</a>]</span>) from HTTP/1.1<a href="#section-6-3.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-3.2">generic framing and extensibility capabilities<a href="#section-6-3.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-3.3">field blocks other than a single header and trailer field block<a href="#section-6-3.3" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-3.4">carrying reason phrases in responses (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-messaging-19#section-4" class="relref">Section 4</a> of [<a href="#MESSAGING" class="xref">MESSAGING</a>]</span>)<a href="#section-6-3.4" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-3.5">header compression (<span>[<a href="#HPACK" class="xref">HPACK</a>]</span>, <span>[<a href="#QPACK" class="xref">QPACK</a>]</span>)<a href="#section-6-3.5" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-6-3.6">framing of responses that depends on the corresponding request (such as HEAD)
+or the value of the status code (such as 204 or 304); these responses use the
+same framing as all other messages<a href="#section-6-3.6" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="section-6-4">Some of these features are also absent in HTTP/2 and HTTP/3.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-5">Unlike HTTP/2 and HTTP/3, this format uses a a fixed format for control data
+rather than using pseudo-fields.  Messages are invalid (<a href="#invalid" class="xref">Section 4</a>) if they
+contain fields named <code>:method</code>, <code>:scheme</code>, <code>:authority</code>, <code>:path</code>, or <code>:status</code>.
+Other pseudo-fields that are defined by protocol extensions <span class="bcp14">MAY</span> be included;
+pseudo-fields cannot be included in trailers (see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-07#section-8.1" class="relref">Section 8.1</a> of [<a href="#H2" class="xref">H2</a>]</span>).  Field
+lines containing pseudo-fields <span class="bcp14">MUST</span> precede other field lines.  A message that
+contains a pseudo-field after any other field is invalid; see <a href="#invalid" class="xref">Section 4</a>.<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-6">Note that while some messages - CONNECT or upgrade requests in particular - can
+be represented using this format, doing so serves no purpose as these requests
+are used to affect protocol behavior, which this format cannot do without
+additional mechanisms.<a href="#section-6-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="media-type">
+<section id="section-7">
+      <h2 id="name-message-bhttp-media-type">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-message-bhttp-media-type" class="section-name selfRef">"message/bhttp" Media Type</a>
+      </h2>
+<p id="section-7-1">The <code>message/bhttp</code> media type can be used to enclose a single HTTP request or
 response message, provided that it obeys the MIME restrictions for all
-"message" types regarding line length and encodings.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-6-2">
-        <dt id="section-6-2.1">
-Type name:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.2">
-          <p id="section-6-2.2.1">message<a href="#section-6-2.2.1" class="pilcrow">¶</a></p>
+"message" types regarding line length and encodings.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-7-2">
+        <dt id="section-7-2.1">Type name:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.2">
+          <p id="section-7-2.2.1">message<a href="#section-7-2.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.3">
-Subtype name:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.4">
-          <p id="section-6-2.4.1">bhttp<a href="#section-6-2.4.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.3">Subtype name:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.4">
+          <p id="section-7-2.4.1">bhttp<a href="#section-7-2.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.5">
-Required parameters:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.6">
-          <p id="section-6-2.6.1">N/A<a href="#section-6-2.6.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.5">Required parameters:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.6">
+          <p id="section-7-2.6.1">N/A<a href="#section-7-2.6.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.7">
-Optional parameters:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.8">
-          <p id="section-6-2.8.1">None<a href="#section-6-2.8.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.7">Optional parameters:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.8">
+          <p id="section-7-2.8.1">None<a href="#section-7-2.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.9">
-Encoding considerations:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.10">
-          <p id="section-6-2.10.1">only "8bit" or "binary" is permitted<a href="#section-6-2.10.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.9">Encoding considerations:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.10">
+          <p id="section-7-2.10.1">only "8bit" or "binary" is permitted<a href="#section-7-2.10.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.11">
-Security considerations:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.12">
-          <p id="section-6-2.12.1">see <a href="#security" class="xref">Section 7</a><a href="#section-6-2.12.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.11">Security considerations:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.12">
+          <p id="section-7-2.12.1">see <a href="#security" class="xref">Section 8</a><a href="#section-7-2.12.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.13">
-Interoperability considerations:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.14">
-          <p id="section-6-2.14.1">N/A<a href="#section-6-2.14.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.13">Interoperability considerations:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.14">
+          <p id="section-7-2.14.1">N/A<a href="#section-7-2.14.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.15">
-Published specification:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.16">
-          <p id="section-6-2.16.1">this specification<a href="#section-6-2.16.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.15">Published specification:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.16">
+          <p id="section-7-2.16.1">this specification<a href="#section-7-2.16.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.17">
-Applications that use this media type:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.18">
-          <p id="section-6-2.18.1">N/A<a href="#section-6-2.18.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.17">Applications that use this media type:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.18">
+          <p id="section-7-2.18.1">N/A<a href="#section-7-2.18.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.19">
-Fragment identifier considerations:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.20">
-          <p id="section-6-2.20.1">N/A<a href="#section-6-2.20.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.19">Fragment identifier considerations:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.20">
+          <p id="section-7-2.20.1">N/A<a href="#section-7-2.20.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.21">
-Additional information:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.22">
-          <span class="break"></span><dl class="dlParallel" id="section-6-2.22.1">
-            <dt id="section-6-2.22.1.1">Magic number(s):</dt>
-            <dd style="margin-left: 1.5em" id="section-6-2.22.1.2">N/A<a href="#section-6-2.22.1.2" class="pilcrow">¶</a>
+<dt id="section-7-2.21">Additional information:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.22">
+          <span class="break"></span><dl class="dlParallel" id="section-7-2.22.1">
+            <dt id="section-7-2.22.1.1">Magic number(s):</dt>
+            <dd style="margin-left: 1.5em" id="section-7-2.22.1.2">N/A<a href="#section-7-2.22.1.2" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6-2.22.1.3">Deprecated alias names for this type:</dt>
-            <dd style="margin-left: 1.5em" id="section-6-2.22.1.4">N/A<a href="#section-6-2.22.1.4" class="pilcrow">¶</a>
+<dt id="section-7-2.22.1.3">Deprecated alias names for this type:</dt>
+            <dd style="margin-left: 1.5em" id="section-7-2.22.1.4">N/A<a href="#section-7-2.22.1.4" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6-2.22.1.5">File extension(s):</dt>
-            <dd style="margin-left: 1.5em" id="section-6-2.22.1.6">N/A<a href="#section-6-2.22.1.6" class="pilcrow">¶</a>
+<dt id="section-7-2.22.1.5">File extension(s):</dt>
+            <dd style="margin-left: 1.5em" id="section-7-2.22.1.6">N/A<a href="#section-7-2.22.1.6" class="pilcrow">¶</a>
 </dd>
             <dd class="break"></dd>
-<dt id="section-6-2.22.1.7">Macintosh file type code(s):</dt>
-            <dd style="margin-left: 1.5em" id="section-6-2.22.1.8">N/A<a href="#section-6-2.22.1.8" class="pilcrow">¶</a>
+<dt id="section-7-2.22.1.7">Macintosh file type code(s):</dt>
+            <dd style="margin-left: 1.5em" id="section-7-2.22.1.8">N/A<a href="#section-7-2.22.1.8" class="pilcrow">¶</a>
 </dd>
           <dd class="break"></dd>
 </dl>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.23">
-Person and email address to contact for further information:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.24">
-          <p id="section-6-2.24.1">see Authors' Addresses section<a href="#section-6-2.24.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.23">Person and email address to contact for further information:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.24">
+          <p id="section-7-2.24.1">see Authors' Addresses section<a href="#section-7-2.24.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.25">
-Intended usage:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.26">
-          <p id="section-6-2.26.1">COMMON<a href="#section-6-2.26.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.25">Intended usage:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.26">
+          <p id="section-7-2.26.1">COMMON<a href="#section-7-2.26.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.27">
-Restrictions on usage:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.28">
-          <p id="section-6-2.28.1">N/A<a href="#section-6-2.28.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.27">Restrictions on usage:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.28">
+          <p id="section-7-2.28.1">N/A<a href="#section-7-2.28.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.29">
-Author:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.30">
-          <p id="section-6-2.30.1">see Authors' Addresses section<a href="#section-6-2.30.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.29">Author:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.30">
+          <p id="section-7-2.30.1">see Authors' Addresses section<a href="#section-7-2.30.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-6-2.31">
-Change controller:  </dt>
-        <dd style="margin-left: 1.5em" id="section-6-2.32">
-          <p id="section-6-2.32.1">IESG<a href="#section-6-2.32.1" class="pilcrow">¶</a></p>
+<dt id="section-7-2.31">Change controller:</dt>
+        <dd style="margin-left: 1.5em" id="section-7-2.32">
+          <p id="section-7-2.32.1">IESG<a href="#section-7-2.32.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
 </section>
 </div>
 <div id="security">
-<section id="section-7">
+<section id="section-8">
       <h2 id="name-security-considerations">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-7-1">Many of the considerations that apply to HTTP message handling apply to this
+<p id="section-8-1">Many of the considerations that apply to HTTP message handling apply to this
 format; see <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-17" class="relref">Section 17</a> of [<a href="#HTTP" class="xref">HTTP</a>]</span> and <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-messaging-19#section-11" class="relref">Section 11</a> of [<a href="#MESSAGING" class="xref">MESSAGING</a>]</span> for common
-issues in handling HTTP messages.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2">Strict parsing of the format with no tolerance for errors can help avoid a
+issues in handling HTTP messages.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">Strict parsing of the format with no tolerance for errors can help avoid a
 number of attacks. However, implementations still need to be aware of the
 possibility of resource exhaustion attacks that might arise from receiving
-large messages, particularly those with large numbers of fields.<a href="#section-7-2" class="pilcrow">¶</a></p>
-<p id="section-7-3">The format is designed to allow for minimal state when translating for use with
-HTTP proper. However, producing a combined value for fields, which might be
-necessary for the <code>Cookie</code> field when translating this format (like HTTP/1.1
-<span>[<a href="#MESSAGING" class="xref">MESSAGING</a>]</span>), can require the commitment of resources. Implementations need
-to ensure that they aren't subject to resource exhaustion attack from a
-maliciously crafted message.<a href="#section-7-3" class="pilcrow">¶</a></p>
+large messages, particularly those with large numbers of fields.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3">Implementations need to ensure that they aren't subject to resource exhaustion
+attack from a maliciously crafted message.  Overall, the format is designed to
+allow for minimal state when processing messages.  However, producing a combined
+field value (<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-semantics-19#section-5.2" class="relref">Section 5.2</a> of [<a href="#HTTP" class="xref">HTTP</a>]</span>) for fields might require the commitment of
+resources.  In particular, combining might be necessary for the <code>Cookie</code> field
+when translating this format for use in other contexts, such as use in an API or
+translation to HTTP/1.1 <span>[<a href="#MESSAGING" class="xref">MESSAGING</a>]</span>, where the recipient of the field might
+not expect multiple values.<a href="#section-8-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-8">
+<section id="section-9">
       <h2 id="name-iana-considerations">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-8-1">Please add the "Media Types" registry at
-<a href="https://www.iana.org/assignments/media-types">https://www.iana.org/assignments/media-types</a> with the registration
-information in <a href="#media-type" class="xref">Section 6</a> for the media type "message/bhttp".<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">IANA is requested to add the "Media Types" registry at
+<span><a href="https://www.iana.org/assignments/media-types">https://www.iana.org/assignments/media-types</a></span> with the registration
+information in <a href="#media-type" class="xref">Section 7</a> for the media type "message/bhttp".<a href="#section-9-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<section id="section-9">
+<section id="section-10">
       <h2 id="name-references">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
-<section id="section-9.1">
+<section id="section-10.1">
         <h3 id="name-normative-references">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
 <dt id="H2">[H2]</dt>
         <dd>
-<span class="refAuthor">Thomson, M.</span> and <span class="refAuthor">C. Benfield</span>, <span class="refTitle">"Hypertext Transfer Protocol Version 2 (HTTP/2)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-httpbis-http2bis-06</span>, <time datetime="2021-11-18" class="refDate">18 November 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-06">https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-06</a>&gt;</span>. </dd>
+<span class="refAuthor">Thomson, M.</span> and <span class="refAuthor">C. Benfield</span>, <span class="refTitle">"HTTP/2"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-httpbis-http2bis-07</span>, <time datetime="2022-01-24" class="refDate">24 January 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-07">https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-http2bis-07</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="H3">[H3]</dt>
+        <dd>
+<span class="refAuthor">Bishop, M.</span>, <span class="refTitle">"Hypertext Transfer Protocol Version 3 (HTTP/3)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-http-34</span>, <time datetime="2021-02-02" class="refDate">2 February 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-http-34">https://datatracker.ietf.org/doc/html/draft-ietf-quic-http-34</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="HTTP">[HTTP]</dt>
         <dd>
@@ -1967,15 +2045,11 @@ information in <a href="#media-type" class="xref">Section 6</a> for the media ty
 <dd class="break"></dd>
 </dl>
 </section>
-<section id="section-9.2">
+<section id="section-10.2">
         <h3 id="name-informative-references">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
-<dt id="H3">[H3]</dt>
-        <dd>
-<span class="refAuthor">Bishop, M.</span>, <span class="refTitle">"Hypertext Transfer Protocol Version 3 (HTTP/3)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-quic-http-34</span>, <time datetime="2021-02-02" class="refDate">2 February 2021</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-quic-http-34">https://datatracker.ietf.org/doc/html/draft-ietf-quic-http-34</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="HPACK">[HPACK]</dt>
         <dd>
 <span class="refAuthor">Peon, R.</span> and <span class="refAuthor">H. Ruellan</span>, <span class="refTitle">"HPACK: Header Compression for HTTP/2"</span>, <span class="seriesInfo">RFC 7541</span>, <span class="seriesInfo">DOI 10.17487/RFC7541</span>, <time datetime="2015-05" class="refDate">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7541">https://www.rfc-editor.org/rfc/rfc7541</a>&gt;</span>. </dd>
@@ -2000,7 +2074,8 @@ information in <a href="#media-type" class="xref">Section 6</a> for the media ty
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">TODO: credit where credit is due.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1"><span class="contact-name">Julian Reschke</span>, <span class="contact-name">David Schinazi</span>, <span class="contact-name">Lucas Pardue</span> and <span class="contact-name">Tommy Pauly</span> provided
+excellent feedback on both the design and its documentation.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">

@@ -9,11 +9,11 @@
 <meta content='
        This specification introduces an alternative way to select a HTTP response from a cache based upon its request headers, using the HTTP "Variants" and "Variant-Key" response header fields. Its aim is to make HTTP proactive content negotiation more cache-friendly. 
     ' name="description">
-<meta content="xml2rfc 3.11.1" name="generator">
+<meta content="xml2rfc 3.12.3" name="generator">
 <meta content="content negotiation" name="keyword">
 <meta content="draft-ietf-httpbis-variants" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.11.1
+  xml2rfc 3.12.3
     Python 3.9.7
     appdirs 1.4.4
     ConfigArgParse 1.3
@@ -22,7 +22,8 @@
     intervaltree 3.1.0
     Jinja2 2.11.3
     kitchen 1.2.6
-    lxml 4.6.4
+    lxml 4.6.5
+    MarkupSafe 2.0.1
     pycountry 20.7.3
     pyflakes 2.3.1
     PyYAML 5.4.1
@@ -1012,11 +1013,11 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">HTTP Representation Variants</td>
-<td class="right">December 2021</td>
+<td class="right">March 2022</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Nottingham</td>
-<td class="center">Expires 4 June 2022</td>
+<td class="center">Expires 24 September 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1032,12 +1033,12 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <a href="https://www.rfc-editor.org/rfc/rfc7234" class="eref">7234</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2021-12-01" class="published">1 December 2021</time>
+<time datetime="2022-03-23" class="published">23 March 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-06-04">4 June 2022</time></dd>
+<dd class="expires"><time datetime="2022-09-24">24 September 2022</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1053,17 +1054,19 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <p id="section-abstract-1">This specification introduces an alternative way to select a HTTP response from a cache based upon its request headers, using the HTTP "Variants" and "Variant-Key" response header fields. Its aim is to make HTTP proactive content negotiation more cache-friendly.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
-      <h2 id="name-discussion-venues">
-<a href="#name-discussion-venues" class="section-name selfRef">Discussion Venues</a>
+      <h2 id="name-about-this-document">
+<a href="#name-about-this-document" class="section-name selfRef">About This Document</a>
       </h2>
 <p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
 <p id="section-note.1-2">
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-ietf-httpbis/">https://datatracker.ietf.org/doc/draft-ietf-httpbis/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">
         Discussion of this document takes place on the
         HTTP Working Group mailing list (<span><a href="mailto:ietf-http-wg@w3.org">mailto:ietf-http-wg@w3.org</a></span>),
         which is archived at <span><a href="https://lists.w3.org/Archives/Public/ietf-http-wg/">https://lists.w3.org/Archives/Public/ietf-http-wg/</a></span>.
-        Working Group information can be found at <span><a href="https://httpwg.org/">https://httpwg.org/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
-<p id="section-note.1-3">Source for this draft and an issue tracker can be found at
-        <span><a href="https://github.com/httpwg/http-extensions/labels/variants">https://github.com/httpwg/http-extensions/labels/variants</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+        Working Group information can be found at <span><a href="https://httpwg.org/">https://httpwg.org/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/httpwg/http-extensions/labels/variants">https://github.com/httpwg/http-extensions/labels/variants</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1084,7 +1087,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 June 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 September 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1093,7 +1096,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2021 IETF Trust and the persons identified as the
+            Copyright (c) 2022 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1285,10 +1288,10 @@ Transfer-Encoding: chunked
         <h3 id="name-notational-conventions">
 <a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-notational-conventions" class="section-name selfRef">Notational Conventions</a>
         </h3>
-<p id="section-1.1-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT",
-"RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as
-described in BCP 14 <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="xref">RFC8174</a>]</span> when, and only when, they appear in all capitals, as
-shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<p id="section-1.1-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
+described in BCP 14 <span>[<a href="#RFC2119" class="xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="xref">RFC8174</a>]</span> when, and only when, they
+appear in all capitals, as shown here.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 <p id="section-1.1-2">This specification uses the Augmented Backus-Naur Form (ABNF) notation of <span>[<a href="#RFC5234" class="xref">RFC5234</a>]</span> but relies on Structured Headers from <span>[<a href="#I-D.ietf-httpbis-header-structure" class="xref">I-D.ietf-httpbis-header-structure</a>]</span> for parsing.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
 <p id="section-1.1-3">Additionally, it uses the "field-name" rule from <span>[<a href="#RFC7230" class="xref">RFC7230</a>]</span>, "type", "subtype", "content-coding" and "language-range" from <span>[<a href="#RFC7231" class="xref">RFC7231</a>]</span>, and "cookie-name" from <span>[<a href="#RFC6265" class="xref">RFC6265</a>]</span>.<a href="#section-1.1-3" class="pilcrow">¶</a></p>
 </section>
@@ -1308,7 +1311,7 @@ Variants        = sh-dict
 </pre><a href="#section-2-3" class="pilcrow">¶</a>
 </div>
 <p id="section-2-4">Each member-name represents the field-name of a request header that is part of the secondary cache key; each member-value is an inner-list of strings or tokens that convey representations of potential values for that header field, hereafter referred to as "available-values".<a href="#section-2-4" class="pilcrow">¶</a></p>
-<p id="section-2-5">If Structured Header parsing fails or a member's value does not have the structure outlined above, the client MUST treat the representation as having no Variants header field.<a href="#section-2-5" class="pilcrow">¶</a></p>
+<p id="section-2-5">If Structured Header parsing fails or a member's value does not have the structure outlined above, the client <span class="bcp14">MUST</span> treat the representation as having no Variants header field.<a href="#section-2-5" class="pilcrow">¶</a></p>
 <p id="section-2-6">Note that an available-value that is a token is interpreted as a string containing the same characters, and vice versa.<a href="#section-2-6" class="pilcrow">¶</a></p>
 <p id="section-2-7">So, given this example header field:<a href="#section-2-7" class="pilcrow">¶</a></p>
 <div id="section-2-8">
@@ -1339,10 +1342,10 @@ Variants: accept-language=(en fr)
 </div>
 <p id="section-2-17">The ordering of available-values is significant, as it might be used by the header's algorithm for selecting a response (in this example, the first language is the default; see <a href="#content-language" class="xref">Appendix A.3</a>).<a href="#section-2-17" class="pilcrow">¶</a></p>
 <p id="section-2-18">The ordering of the request header fields themselves indicates descending application of preferences; in the example above, a cache that has all of the possible permutations stored will honour the client's preferences for Accept-Encoding before honouring Accept-Language.<a href="#section-2-18" class="pilcrow">¶</a></p>
-<p id="section-2-19">Origin servers SHOULD consistently send Variant header fields on all cacheable (as per <span>[<a href="#RFC7234" class="xref">RFC7234</a>]</span>, Section 3) responses for a resource, since its absence will trigger caches to fall back to Vary processing.<a href="#section-2-19" class="pilcrow">¶</a></p>
-<p id="section-2-20">Likewise, servers MUST send the Variant-Key response header field when sending Variants, since its absence means that the stored response will not be reused when this specification is implemented.<a href="#section-2-20" class="pilcrow">¶</a></p>
+<p id="section-2-19">Origin servers <span class="bcp14">SHOULD</span> consistently send Variant header fields on all cacheable (as per <span>[<a href="#RFC7234" class="xref">RFC7234</a>]</span>, Section 3) responses for a resource, since its absence will trigger caches to fall back to Vary processing.<a href="#section-2-19" class="pilcrow">¶</a></p>
+<p id="section-2-20">Likewise, servers <span class="bcp14">MUST</span> send the Variant-Key response header field when sending Variants, since its absence means that the stored response will not be reused when this specification is implemented.<a href="#section-2-20" class="pilcrow">¶</a></p>
 <p id="section-2-21"><em>RFC EDITOR: Please remove the next paragraph before publication.</em><a href="#section-2-21" class="pilcrow">¶</a></p>
-<p id="section-2-22">Implementations of drafts of this specification MUST implement an HTTP header field named "Variants-##" instead of the "Variants" header field specified by the final RFC, with "##" replaced by the draft number being implemented. For example, implementations of draft-ietf-httpbis-variants-05 would implement "Variants-05".<a href="#section-2-22" class="pilcrow">¶</a></p>
+<p id="section-2-22">Implementations of drafts of this specification <span class="bcp14">MUST</span> implement an HTTP header field named "Variants-##" instead of the "Variants" header field specified by the final RFC, with "##" replaced by the draft number being implemented. For example, implementations of draft-ietf-httpbis-variants-05 would implement "Variants-05".<a href="#section-2-22" class="pilcrow">¶</a></p>
 <div id="vary">
 <section id="section-2.1">
         <h3 id="name-relationship-to-vary">
@@ -1368,7 +1371,7 @@ Variants: accept-language=(en fr)
 Variant-Key      = sh-list
 </pre><a href="#section-3-3" class="pilcrow">¶</a>
 </div>
-<p id="section-3-4">Each member MUST be an inner-list, and MUST itself have the same number of members as there are members of the representation's Variants header field. If not, the client MUST treat the representation as having no Variant-Key header field.<a href="#section-3-4" class="pilcrow">¶</a></p>
+<p id="section-3-4">Each member <span class="bcp14">MUST</span> be an inner-list, and <span class="bcp14">MUST</span> itself have the same number of members as there are members of the representation's Variants header field. If not, the client <span class="bcp14">MUST</span> treat the representation as having no Variant-Key header field.<a href="#section-3-4" class="pilcrow">¶</a></p>
 <p id="section-3-5">Each member identifies a list of available-values corresponding to the header field-names in the Variants header field, thereby identifying a secondary cache key that can be used with this response. These available-values do not need to explicitly appear in the Variants header field; they can be interpreted by the algorithm specific to processing that field. For example, Accept-Encoding defines an implicit "identity" available-value (<a href="#content-encoding" class="xref">Appendix A.2</a>).<a href="#section-3-5" class="pilcrow">¶</a></p>
 <p id="section-3-6">Each inner-list member is treated as identifying an available-value for the corresponding variant-axis' field-name. Any list-member that is a token is interpreted as a string containing the same characters.<a href="#section-3-6" class="pilcrow">¶</a></p>
 <p id="section-3-7">For example:<a href="#section-3-7" class="pilcrow">¶</a></p>
@@ -1387,7 +1390,7 @@ Variant-Key: (gzip fr), ("identity" fr)
 </pre><a href="#section-3-11" class="pilcrow">¶</a>
 </div>
 <p id="section-3-12">indicates that this response can be used for requests whose Accept-Encoding algorithm selects "gzip" or "identity", as long as the Accept-Language algorithm selects "fr" -- perhaps because there is no gzip-compressed French representation.<a href="#section-3-12" class="pilcrow">¶</a></p>
-<p id="section-3-13">When more than one Variant-Key value is in a response, the first one present MUST correspond to the request that caused that response to be generated. For example:<a href="#section-3-13" class="pilcrow">¶</a></p>
+<p id="section-3-13">When more than one Variant-Key value is in a response, the first one present <span class="bcp14">MUST</span> correspond to the request that caused that response to be generated. For example:<a href="#section-3-13" class="pilcrow">¶</a></p>
 <div id="section-3-14">
 <pre class="lang-example sourcecode">
 Variants: accept-encoding=(gzip br), accept-language=(en fr)
@@ -1404,7 +1407,7 @@ Variant-Key: ("gzip " fr)
 </div>
 <p id="section-3-18">The whitespace after "gzip" in the first header field value is excluded by the parsing algorithm, but the whitespace in the second header field value is included by the string parsing algorithm. This will likely cause the second header field value to fail to match client requests.<a href="#section-3-18" class="pilcrow">¶</a></p>
 <p id="section-3-19"><em>RFC EDITOR: Please remove the next paragraph before publication.</em><a href="#section-3-19" class="pilcrow">¶</a></p>
-<p id="section-3-20">Implementations of drafts of this specification MUST implement an HTTP header field named "Variant-Key-##" instead of the "Variant-Key" header field specified by the final RFC, with "##" replaced by the draft number being implemented. For example, implementations of draft-ietf-httpbis-variants-05 would implement "Variant-Key-05".<a href="#section-3-20" class="pilcrow">¶</a></p>
+<p id="section-3-20">Implementations of drafts of this specification <span class="bcp14">MUST</span> implement an HTTP header field named "Variant-Key-##" instead of the "Variant-Key" header field specified by the final RFC, with "##" replaced by the draft number being implemented. For example, implementations of draft-ietf-httpbis-variants-05 would implement "Variant-Key-05".<a href="#section-3-20" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="cache">
@@ -1425,7 +1428,7 @@ Variant-Key: ("gzip " fr)
         <li id="section-4-4.4">
           <p id="section-4-4.4.1">If the freshest member of stored-responses (as per <span>[<a href="#RFC7234" class="xref">RFC7234</a>]</span>, Section 4.2) has one or more "Variants" header field(s) that successfully parse according to <a href="#variants" class="xref">Section 2</a>:<a href="#section-4-4.4.1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-4-4.4.2">
-<li id="section-4-4.4.2.1">Select one member of stored-responses with a "Variants" header field-value(s) that successfully parses according to <a href="#variants" class="xref">Section 2</a> and let variants-header be this parsed value. This SHOULD be the most recent response, but MAY be from an older one as long as it is still fresh.<a href="#section-4-4.4.2.1" class="pilcrow">¶</a>
+<li id="section-4-4.4.2.1">Select one member of stored-responses with a "Variants" header field-value(s) that successfully parses according to <a href="#variants" class="xref">Section 2</a> and let variants-header be this parsed value. This <span class="bcp14">SHOULD</span> be the most recent response, but <span class="bcp14">MAY</span> be from an older one as long as it is still fresh.<a href="#section-4-4.4.2.1" class="pilcrow">¶</a>
 </li>
             <li id="section-4-4.4.2.2">
               <p id="section-4-4.4.2.2.1">For each variant-axis in variants-header:<a href="#section-4-4.4.2.2.1" class="pilcrow">¶</a></p>
@@ -1739,11 +1742,14 @@ Transfer-Encoding: chunked
       </h2>
 <p id="section-6-1">To be usable with Variants, proactive content negotiation mechanisms need to be specified to take advantage of it. Specifically, they:<a href="#section-6-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6-2.1">MUST define a request header field that advertises the clients preferences or capabilities. Often, its field-name will begin with "Accept-", but this is not required.<a href="#section-6-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-6-2.1">
+          <span class="bcp14">MUST</span> define a request header field that advertises the clients preferences or capabilities. Often, its field-name will begin with "Accept-", but this is not required.<a href="#section-6-2.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-6-2.2">MUST define the syntax of an available-value that will occur in Variants and Variant-Key.<a href="#section-6-2.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-2.2">
+          <span class="bcp14">MUST</span> define the syntax of an available-value that will occur in Variants and Variant-Key.<a href="#section-6-2.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-6-2.3">MUST define an algorithm for selecting a result. It MUST return a list of available-values that are suitable for the request, in order of preference, given the value of the request header nominated above (or null if the request header is absent) and an available-values list from the Variants header. If the result is an empty list, it implies that the cache cannot satisfy the request.<a href="#section-6-2.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-2.3">
+          <span class="bcp14">MUST</span> define an algorithm for selecting a result. It <span class="bcp14">MUST</span> return a list of available-values that are suitable for the request, in order of preference, given the value of the request header nominated above (or null if the request header is absent) and an available-values list from the Variants header. If the result is an empty list, it implies that the cache cannot satisfy the request.<a href="#section-6-2.3" class="pilcrow">¶</a>
 </li>
       </ul>
 <p id="section-6-3"><a href="#backports" class="xref">Appendix A</a> fulfils these requirements for some existing proactive content negotiation mechanisms in HTTP.<a href="#section-6-3" class="pilcrow">¶</a></p>
@@ -1893,7 +1899,7 @@ accept-available-value = type "/" subtype
 <ol start="1" type="1" class="normal type-1" id="appendix-A.1-5">
 <li id="appendix-A.1-5.1">Let preferred-available be an empty list.<a href="#appendix-A.1-5.1" class="pilcrow">¶</a>
 </li>
-          <li id="appendix-A.1-5.2">Let preferred-types be a list of the types in the request-value (or the empty list if request-value is null), ordered by their weight, highest to lowest, as per Section 5.3.2 of <span>[<a href="#RFC7231" class="xref">RFC7231</a>]</span> (omitting any coding with a weight of 0). If a type lacks an explicit weight, an implementation MAY assign one.<a href="#appendix-A.1-5.2" class="pilcrow">¶</a>
+          <li id="appendix-A.1-5.2">Let preferred-types be a list of the types in the request-value (or the empty list if request-value is null), ordered by their weight, highest to lowest, as per Section 5.3.2 of <span>[<a href="#RFC7231" class="xref">RFC7231</a>]</span> (omitting any coding with a weight of 0). If a type lacks an explicit weight, an implementation <span class="bcp14">MAY</span> assign one.<a href="#appendix-A.1-5.2" class="pilcrow">¶</a>
 </li>
           <li id="appendix-A.1-5.3">
             <p id="appendix-A.1-5.3.1">For each preferred-type in preferred-types:<a href="#appendix-A.1-5.3.1" class="pilcrow">¶</a></p>
@@ -1926,7 +1932,7 @@ accept-encoding-available-value = content-coding / "identity"
 <ol start="1" type="1" class="normal type-1" id="appendix-A.2-5">
 <li id="appendix-A.2-5.1">Let preferred-available be an empty list.<a href="#appendix-A.2-5.1" class="pilcrow">¶</a>
 </li>
-          <li id="appendix-A.2-5.2">Let preferred-codings be a list of the codings in the request-value (or the empty list if request-value is null), ordered by their weight, highest to lowest, as per Section 5.3.1 of <span>[<a href="#RFC7231" class="xref">RFC7231</a>]</span> (omitting any coding with a weight of 0). If a coding lacks an explicit weight, an implementation MAY assign one.<a href="#appendix-A.2-5.2" class="pilcrow">¶</a>
+          <li id="appendix-A.2-5.2">Let preferred-codings be a list of the codings in the request-value (or the empty list if request-value is null), ordered by their weight, highest to lowest, as per Section 5.3.1 of <span>[<a href="#RFC7231" class="xref">RFC7231</a>]</span> (omitting any coding with a weight of 0). If a coding lacks an explicit weight, an implementation <span class="bcp14">MAY</span> assign one.<a href="#appendix-A.2-5.2" class="pilcrow">¶</a>
 </li>
           <li id="appendix-A.2-5.3">If "identity" is not a member of preferred-codings, append "identity".<a href="#appendix-A.2-5.3" class="pilcrow">¶</a>
 </li>
@@ -1961,7 +1967,7 @@ accept-encoding-available-value = language-range
 <ol start="1" type="1" class="normal type-1" id="appendix-A.3-5">
 <li id="appendix-A.3-5.1">Let preferred-available be an empty list.<a href="#appendix-A.3-5.1" class="pilcrow">¶</a>
 </li>
-          <li id="appendix-A.3-5.2">Let preferred-langs be a list of the language-ranges in the request-value (or the empty list if request-value is null), ordered by their weight, highest to lowest, as per Section 5.3.1 of <span>[<a href="#RFC7231" class="xref">RFC7231</a>]</span> (omitting any language-range with a weight of 0). If a language-range lacks a weight, an implementation MAY assign one.<a href="#appendix-A.3-5.2" class="pilcrow">¶</a>
+          <li id="appendix-A.3-5.2">Let preferred-langs be a list of the language-ranges in the request-value (or the empty list if request-value is null), ordered by their weight, highest to lowest, as per Section 5.3.1 of <span>[<a href="#RFC7231" class="xref">RFC7231</a>]</span> (omitting any language-range with a weight of 0). If a language-range lacks a weight, an implementation <span class="bcp14">MAY</span> assign one.<a href="#appendix-A.3-5.2" class="pilcrow">¶</a>
 </li>
           <li id="appendix-A.3-5.3">
             <p id="appendix-A.3-5.3.1">For each preferred-lang in preferred-langs:<a href="#appendix-A.3-5.3.1" class="pilcrow">¶</a></p>
